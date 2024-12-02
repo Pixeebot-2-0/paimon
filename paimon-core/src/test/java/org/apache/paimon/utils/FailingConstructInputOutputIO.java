@@ -18,6 +18,7 @@
 
 package org.apache.paimon.utils;
 
+import java.security.SecureRandom;
 import org.apache.paimon.fs.Path;
 import org.apache.paimon.fs.PositionOutputStream;
 import org.apache.paimon.fs.SeekableInputStream;
@@ -32,7 +33,7 @@ import java.util.Random;
 public class FailingConstructInputOutputIO extends TraceableFileIO {
 
     private final double rate;
-    private final Random random = new Random();
+    private final Random random = new SecureRandom();
     private String targetName;
     private final HashSet<Path> openedInputPath = new HashSet<>();
     private final HashSet<Path> openedOutputPath = new HashSet<>();

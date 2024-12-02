@@ -18,6 +18,7 @@
 
 package org.apache.paimon.data.serializer;
 
+import java.security.SecureRandom;
 import org.apache.paimon.utils.Pair;
 
 import java.util.Arrays;
@@ -39,7 +40,7 @@ public class LongSerializerTest extends SerializerTestBase<Long> {
 
     @Override
     protected Long[] getTestData() {
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         long rndLong = rnd.nextLong();
 
         return new Long[] {0L, 1L, -1L, Long.MAX_VALUE, Long.MIN_VALUE, rndLong, -rndLong};

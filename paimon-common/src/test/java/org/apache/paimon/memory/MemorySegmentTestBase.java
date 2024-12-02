@@ -18,6 +18,7 @@
 
 package org.apache.paimon.memory;
 
+import java.security.SecureRandom;
 import org.apache.paimon.testutils.junit.parameterized.Parameters;
 
 import org.junit.jupiter.api.TestTemplate;
@@ -44,7 +45,7 @@ import static org.assertj.core.api.Assertions.within;
 /** Tests for the access and transfer methods of the {@link MemorySegment}. */
 public abstract class MemorySegmentTestBase {
 
-    private final Random random = new Random();
+    private final Random random = new SecureRandom();
 
     private final int pageSize;
 
@@ -157,7 +158,7 @@ public abstract class MemorySegmentTestBase {
         seg1.put(0, referenceArray);
         seg2.put(0, referenceArray);
 
-        int i = new Random().nextInt(pageSize - 8);
+        int i = new SecureRandom().nextInt(pageSize - 8);
 
         seg1.put(i, (byte) 10);
         assertThat(seg1.equalTo(seg2, i, i, 9)).isFalse();

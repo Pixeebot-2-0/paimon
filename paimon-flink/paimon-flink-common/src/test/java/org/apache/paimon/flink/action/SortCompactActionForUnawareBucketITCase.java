@@ -18,6 +18,7 @@
 
 package org.apache.paimon.flink.action;
 
+import java.security.SecureRandom;
 import org.apache.paimon.catalog.Identifier;
 import org.apache.paimon.data.BinaryString;
 import org.apache.paimon.data.Decimal;
@@ -54,7 +55,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /** Order Rewrite Action tests for {@link SortCompactAction}. */
 public class SortCompactActionForUnawareBucketITCase extends ActionITCaseBase {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
 
     private void prepareData(int size, int loop) throws Exception {
         createTable();

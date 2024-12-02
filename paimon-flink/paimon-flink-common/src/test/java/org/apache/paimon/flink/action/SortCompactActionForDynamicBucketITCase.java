@@ -18,6 +18,7 @@
 
 package org.apache.paimon.flink.action;
 
+import java.security.SecureRandom;
 import org.apache.paimon.CoreOptions;
 import org.apache.paimon.catalog.Identifier;
 import org.apache.paimon.data.BinaryString;
@@ -48,7 +49,7 @@ import java.util.Random;
 /** Sort Compact Action tests for dynamic bucket table. */
 public class SortCompactActionForDynamicBucketITCase extends ActionITCaseBase {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
 
     @Test
     public void testDynamicBucketSort() throws Exception {

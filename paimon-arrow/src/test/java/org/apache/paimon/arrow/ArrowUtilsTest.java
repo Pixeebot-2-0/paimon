@@ -18,6 +18,7 @@
 
 package org.apache.paimon.arrow;
 
+import java.security.SecureRandom;
 import org.apache.paimon.schema.Schema;
 import org.apache.paimon.types.DataTypes;
 import org.apache.paimon.types.RowType;
@@ -33,7 +34,7 @@ import java.util.Random;
 /** Test for {@link ArrowUtils}. */
 public class ArrowUtilsTest {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
 
     @Test
     public void testParquetFieldId() {

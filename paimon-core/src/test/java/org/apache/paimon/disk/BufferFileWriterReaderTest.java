@@ -18,6 +18,7 @@
 
 package org.apache.paimon.disk;
 
+import java.security.SecureRandom;
 import org.apache.paimon.memory.Buffer;
 import org.apache.paimon.memory.MemorySegment;
 
@@ -40,7 +41,7 @@ public class BufferFileWriterReaderTest {
 
     private static final int BUFFER_SIZE = 32 * 1024;
 
-    private static final Random random = new Random();
+    private static final Random random = new SecureRandom();
 
     @TempDir Path tempDir;
 

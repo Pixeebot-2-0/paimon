@@ -18,6 +18,7 @@
 
 package org.apache.paimon.sort.zorder;
 
+import java.security.SecureRandom;
 import org.apache.paimon.data.BinaryString;
 import org.apache.paimon.data.GenericRow;
 import org.apache.paimon.data.InternalRow;
@@ -39,7 +40,7 @@ import static org.apache.paimon.utils.RandomUtil.randomString;
 /** Tests for {@link ZIndexer}. */
 public class ZIndexerTest {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
 
     @Test
     public void testZIndexer() {

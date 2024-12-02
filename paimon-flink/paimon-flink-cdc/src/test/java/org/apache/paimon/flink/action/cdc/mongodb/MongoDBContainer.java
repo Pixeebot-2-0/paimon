@@ -19,6 +19,7 @@
 package org.apache.paimon.flink.action.cdc.mongodb;
 
 import com.github.dockerjava.api.command.InspectContainerResponse;
+import java.security.SecureRandom;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -147,7 +148,7 @@ public class MongoDBContainer extends org.testcontainers.containers.MongoDBConta
             String fileNameIgnoreSuffix, String content) {
         return executeCommandFileInDatabase(
                 fileNameIgnoreSuffix,
-                fileNameIgnoreSuffix + "_" + Integer.toUnsignedString(new Random().nextInt(), 36),
+                fileNameIgnoreSuffix + "_" + Integer.toUnsignedString(new SecureRandom().nextInt(), 36),
                 content);
     }
 

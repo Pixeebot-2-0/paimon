@@ -18,6 +18,7 @@
 
 package org.apache.paimon.flink.action.cdc.postgres;
 
+import java.security.SecureRandom;
 import org.apache.paimon.flink.action.cdc.CdcActionITCaseBase;
 
 import org.apache.flink.cdc.connectors.postgres.source.PostgresConnectionPoolFactory;
@@ -114,7 +115,7 @@ public class PostgresActionITCaseBase extends CdcActionITCaseBase {
     }
 
     protected String getSlotName() {
-        final Random random = new Random();
+        final Random random = new SecureRandom();
         int id = random.nextInt(10000);
         return "paimon_" + id;
     }

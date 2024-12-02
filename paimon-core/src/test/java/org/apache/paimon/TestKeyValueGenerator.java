@@ -18,6 +18,7 @@
 
 package org.apache.paimon;
 
+import java.security.SecureRandom;
 import org.apache.paimon.codegen.RecordComparator;
 import org.apache.paimon.data.BinaryRow;
 import org.apache.paimon.data.BinaryString;
@@ -130,7 +131,7 @@ public class TestKeyValueGenerator {
 
     public TestKeyValueGenerator(GeneratorMode mode) {
         this.mode = mode;
-        this.random = new Random();
+        this.random = new SecureRandom();
 
         this.addedOrders = new ArrayList<>();
         this.deletedOrders = new ArrayList<>();

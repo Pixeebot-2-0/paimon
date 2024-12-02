@@ -18,6 +18,7 @@
 
 package org.apache.paimon.mergetree;
 
+import java.security.SecureRandom;
 import org.apache.paimon.CoreOptions;
 import org.apache.paimon.CoreOptions.ChangelogProducer;
 import org.apache.paimon.CoreOptions.SortEngine;
@@ -214,17 +215,17 @@ public abstract class MergeTreeTestBase {
 
     @Test
     public void test2() throws Exception {
-        doTestWriteRead(new Random().nextInt(2));
+        doTestWriteRead(new SecureRandom().nextInt(2));
     }
 
     @Test
     public void test8() throws Exception {
-        doTestWriteRead(new Random().nextInt(8));
+        doTestWriteRead(new SecureRandom().nextInt(8));
     }
 
     @Test
     public void testRandom() throws Exception {
-        doTestWriteRead(new Random().nextInt(20));
+        doTestWriteRead(new SecureRandom().nextInt(20));
     }
 
     @Test
@@ -332,7 +333,7 @@ public abstract class MergeTreeTestBase {
         recreateMergeTree(targetFileSize);
 
         List<TestRecord> expected = new ArrayList<>();
-        Random random = new Random();
+        Random random = new SecureRandom();
         int perBatch = 1_000;
         Set<String> newFileNames = new HashSet<>();
         List<DataFileMeta> compactedFiles = new ArrayList<>();
@@ -671,7 +672,7 @@ public abstract class MergeTreeTestBase {
     }
 
     private List<TestRecord> generateRandom(int perBatch) {
-        Random random = new Random();
+        Random random = new SecureRandom();
         List<TestRecord> records = new ArrayList<>(perBatch);
         for (int i = 0; i < perBatch; i++) {
             records.add(

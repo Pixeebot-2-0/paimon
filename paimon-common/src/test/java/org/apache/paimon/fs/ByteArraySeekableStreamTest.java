@@ -18,6 +18,7 @@
 
 package org.apache.paimon.fs;
 
+import java.security.SecureRandom;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ import static org.apache.paimon.utils.RandomUtil.randomBytes;
 /** Test for {@link ByteArraySeekableStream}. */
 public class ByteArraySeekableStreamTest {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
 
     @Test
     public void testBasic() throws IOException {

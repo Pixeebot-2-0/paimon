@@ -18,6 +18,7 @@
 
 package org.apache.paimon.fileindex.bloomfilter;
 
+import java.security.SecureRandom;
 import org.apache.paimon.data.Timestamp;
 import org.apache.paimon.types.DataTypes;
 
@@ -29,7 +30,7 @@ import java.util.Random;
 /** Test for {@link FastHash.FastHashVisitor}. */
 public class FastHashVisitorTest {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
 
     @Test
     public void testTinyIntType() {

@@ -18,13 +18,14 @@
 
 package org.apache.paimon.data.serializer;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
 
 /** Test for {@link BinarySerializer}. */
 public class BinarySerializerTest extends SerializerTestBase<byte[]> {
 
-    private final Random rnd = new Random();
+    private final Random rnd = new SecureRandom();
 
     @Override
     protected Serializer<byte[]> createSerializer() {

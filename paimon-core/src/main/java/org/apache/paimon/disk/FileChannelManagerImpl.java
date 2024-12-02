@@ -18,6 +18,7 @@
 
 package org.apache.paimon.disk;
 
+import java.security.SecureRandom;
 import org.apache.paimon.disk.FileIOChannel.Enumerator;
 import org.apache.paimon.disk.FileIOChannel.ID;
 import org.apache.paimon.utils.FileIOUtils;
@@ -55,7 +56,7 @@ public class FileChannelManagerImpl implements FileChannelManager {
         checkNotNull(tempDirs, "The temporary directories must not be null.");
         checkArgument(tempDirs.length > 0, "The temporary directories must not be empty.");
 
-        this.random = new Random();
+        this.random = new SecureRandom();
 
         // Creates directories after registering shutdown hook to ensure the directories can be
         // removed if required.

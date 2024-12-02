@@ -18,6 +18,7 @@
 
 package org.apache.paimon.format.orc;
 
+import java.security.SecureRandom;
 import org.apache.paimon.data.InternalRow;
 import org.apache.paimon.format.FormatReaderContext;
 import org.apache.paimon.format.OrcFormatReaderContext;
@@ -174,8 +175,8 @@ class OrcReaderFactoryTest {
     @RepeatedTest(10)
     void testReadRowPositionWithRandomFilterAndPool() throws IOException {
         ArrayList<OrcFilters.Predicate> predicates = new ArrayList<>();
-        int randomStart = new Random().nextInt(1920800);
-        int randomPooSize = new Random().nextInt(3) + 1;
+        int randomStart = new SecureRandom().nextInt(1920800);
+        int randomPooSize = new SecureRandom().nextInt(3) + 1;
         predicates.add(
                 new OrcFilters.Not(
                         new OrcFilters.LessThanEquals(
@@ -210,7 +211,7 @@ class OrcReaderFactoryTest {
 
     @Test
     void testReadRowPositionWithTransformAndFilter() throws IOException {
-        int randomPooSize = new Random().nextInt(3) + 1;
+        int randomPooSize = new SecureRandom().nextInt(3) + 1;
         OrcReaderFactory format = createFormat(FLAT_FILE_TYPE, new int[] {2, 0, 1});
 
         LocalFileIO localFileIO = new LocalFileIO();

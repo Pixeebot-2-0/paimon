@@ -18,6 +18,7 @@
 
 package org.apache.paimon.deletionvectors;
 
+import java.security.SecureRandom;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -30,7 +31,7 @@ public class DeletionVectorTest {
     @Test
     public void testBitmapDeletionVector() {
         HashSet<Integer> toDelete = new HashSet<>();
-        Random random = new Random();
+        Random random = new SecureRandom();
         for (int i = 0; i < 10000; i++) {
             toDelete.add(random.nextInt());
         }

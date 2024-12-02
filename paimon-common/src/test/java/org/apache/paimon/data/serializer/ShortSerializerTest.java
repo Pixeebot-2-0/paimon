@@ -18,6 +18,7 @@
 
 package org.apache.paimon.data.serializer;
 
+import java.security.SecureRandom;
 import org.apache.paimon.utils.Pair;
 
 import java.util.Arrays;
@@ -39,7 +40,7 @@ public class ShortSerializerTest extends SerializerTestBase<Short> {
 
     @Override
     protected Short[] getTestData() {
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         short rndShort = (short) rnd.nextInt();
 
         return new Short[] {

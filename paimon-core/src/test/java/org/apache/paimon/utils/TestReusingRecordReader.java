@@ -18,6 +18,7 @@
 
 package org.apache.paimon.utils;
 
+import java.security.SecureRandom;
 import org.apache.paimon.KeyValue;
 import org.apache.paimon.reader.RecordReader;
 
@@ -56,7 +57,7 @@ public class TestReusingRecordReader implements RecordReader<KeyValue> {
         this.reuse = new ReusingKeyValue();
 
         this.producedBatches = new ArrayList<>();
-        this.random = new Random();
+        this.random = new SecureRandom();
         this.beforeReadBatch =
                 () -> {
                     try {

@@ -18,6 +18,7 @@
 
 package org.apache.paimon.utils;
 
+import java.security.SecureRandom;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,7 @@ import java.util.Random;
 /** Test for {@link BloomFilter64}. */
 public class BloomFilter64Test {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
 
     @Test
     public void testFunction() {

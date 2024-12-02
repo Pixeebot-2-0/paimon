@@ -18,6 +18,7 @@
 
 package org.apache.paimon.index;
 
+import java.security.SecureRandom;
 import org.apache.paimon.fs.Path;
 import org.apache.paimon.fs.local.LocalFileIO;
 import org.apache.paimon.utils.IntIterator;
@@ -57,7 +58,7 @@ public class HashIndexFileTest {
 
         HashIndexFile file = new HashIndexFile(LocalFileIO.create(), pathFactory);
 
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         List<Integer> random = new ArrayList<>();
         for (int i = 0; i < rnd.nextInt(100_000); i++) {
             random.add(rnd.nextInt());

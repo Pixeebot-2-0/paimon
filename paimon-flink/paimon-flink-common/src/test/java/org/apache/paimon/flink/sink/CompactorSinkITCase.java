@@ -18,6 +18,7 @@
 
 package org.apache.paimon.flink.sink;
 
+import java.security.SecureRandom;
 import org.apache.paimon.Snapshot;
 import org.apache.paimon.catalog.Catalog;
 import org.apache.paimon.catalog.Identifier;
@@ -172,7 +173,7 @@ public class CompactorSinkITCase extends AbstractTestBase {
                         .withContinuousMode(false)
                         .withPartitionPredicate(predicate)
                         .build();
-        Integer sinkParalellism = new Random().nextInt(100) + 1;
+        Integer sinkParalellism = new SecureRandom().nextInt(100) + 1;
         new CompactorSinkBuilder(
                         table.copy(
                                 new HashMap<String, String>() {

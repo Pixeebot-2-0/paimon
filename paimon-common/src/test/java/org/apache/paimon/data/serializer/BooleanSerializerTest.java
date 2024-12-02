@@ -18,6 +18,7 @@
 
 package org.apache.paimon.data.serializer;
 
+import java.security.SecureRandom;
 import org.apache.paimon.utils.Pair;
 
 import java.util.Arrays;
@@ -39,7 +40,7 @@ public class BooleanSerializerTest extends SerializerTestBase<Boolean> {
 
     @Override
     protected Boolean[] getTestData() {
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
 
         return new Boolean[] {
             Boolean.TRUE, Boolean.FALSE, rnd.nextBoolean(), rnd.nextBoolean(), rnd.nextBoolean()

@@ -18,6 +18,7 @@
 
 package org.apache.paimon.utils;
 
+import java.security.SecureRandom;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class Int2ShortHashMapTest {
     @Test
     public void testRandom() {
         Map<Integer, Short> values = new HashMap<>();
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         for (int i = 0; i < rnd.nextInt(100); i++) {
             values.put(rnd.nextInt(), (short) rnd.nextInt());
         }

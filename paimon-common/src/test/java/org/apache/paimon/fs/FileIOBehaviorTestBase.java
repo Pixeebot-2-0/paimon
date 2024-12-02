@@ -18,6 +18,7 @@
 
 package org.apache.paimon.fs;
 
+import java.security.SecureRandom;
 import org.apache.paimon.utils.StringUtils;
 
 import org.junit.jupiter.api.AfterEach;
@@ -34,7 +35,7 @@ import static org.assertj.core.api.Assertions.fail;
 /** Common tests for the behavior of {@link FileIO} methods. */
 public abstract class FileIOBehaviorTestBase {
 
-    private static final Random RND = new Random();
+    private static final Random RND = new SecureRandom();
 
     /** The cached file system instance. */
     private FileIO fs;

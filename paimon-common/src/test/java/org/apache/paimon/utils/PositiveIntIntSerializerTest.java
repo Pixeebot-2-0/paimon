@@ -18,6 +18,7 @@
 
 package org.apache.paimon.utils;
 
+import java.security.SecureRandom;
 import org.apache.paimon.data.serializer.Serializer;
 import org.apache.paimon.data.serializer.SerializerTestBase;
 
@@ -38,7 +39,7 @@ public class PositiveIntIntSerializerTest extends SerializerTestBase<PositiveInt
 
     @Override
     protected PositiveIntInt[] getTestData() {
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         int rndInt = Math.abs(rnd.nextInt());
 
         int[] ints = new int[] {0, 1, Integer.MAX_VALUE, rndInt};
