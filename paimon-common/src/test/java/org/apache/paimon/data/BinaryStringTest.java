@@ -18,6 +18,7 @@
 
 package org.apache.paimon.data;
 
+import java.security.SecureRandom;
 import org.apache.paimon.memory.MemorySegment;
 import org.apache.paimon.testutils.junit.parameterized.ParameterizedTestExtension;
 import org.apache.paimon.testutils.junit.parameterized.Parameters;
@@ -72,7 +73,7 @@ public class BinaryStringTest {
         Mode mode = this.mode;
 
         if (mode == Mode.RANDOM) {
-            int rnd = new Random().nextInt(3);
+            int rnd = new SecureRandom().nextInt(3);
             if (rnd == 0) {
                 mode = Mode.ONE_SEG;
             } else if (rnd == 1) {
@@ -89,7 +90,7 @@ public class BinaryStringTest {
             return string;
         } else {
             int numBytes = string.getSizeInBytes();
-            int pad = new Random().nextInt(5);
+            int pad = new SecureRandom().nextInt(5);
             int numBytesWithPad = numBytes + pad;
             int segSize = numBytesWithPad / 2 + 1;
             byte[] bytes1 = new byte[segSize];

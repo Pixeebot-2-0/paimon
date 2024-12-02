@@ -18,6 +18,7 @@
 
 package org.apache.paimon.flink.shuffle;
 
+import java.security.SecureRandom;
 import org.apache.paimon.annotation.VisibleForTesting;
 import org.apache.paimon.data.DataGetters;
 import org.apache.paimon.flink.FlinkRowWrapper;
@@ -549,7 +550,7 @@ public class RangeShuffle {
     /** Contains integers and randomly get one. */
     private static class RandomList {
 
-        private static final Random RANDOM = new Random();
+        private static final Random RANDOM = new SecureRandom();
 
         private final List<Integer> list = new ArrayList<>();
 

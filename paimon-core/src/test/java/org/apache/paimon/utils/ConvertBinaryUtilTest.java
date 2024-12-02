@@ -18,6 +18,7 @@
 
 package org.apache.paimon.utils;
 
+import java.security.SecureRandom;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +44,7 @@ public class ConvertBinaryUtilTest {
     public static String generateRandomString() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-        Random random = new Random();
+        Random random = new SecureRandom();
         int length = random.nextInt(100) + 1;
 
         StringBuilder stringBuilder = new StringBuilder();

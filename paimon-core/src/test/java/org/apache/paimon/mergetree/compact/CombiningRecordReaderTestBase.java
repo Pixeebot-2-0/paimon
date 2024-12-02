@@ -18,6 +18,7 @@
 
 package org.apache.paimon.mergetree.compact;
 
+import java.security.SecureRandom;
 import org.apache.paimon.CoreOptions.SortEngine;
 import org.apache.paimon.KeyValue;
 import org.apache.paimon.codegen.RecordComparator;
@@ -68,7 +69,7 @@ public abstract class CombiningRecordReaderTestBase {
     }
 
     protected List<List<ReusingTestData>> generateRandomData() {
-        Random random = new Random();
+        Random random = new SecureRandom();
         int numReaders = random.nextInt(20) + 1;
         List<List<ReusingTestData>> readersData = new ArrayList<>();
         for (int i = 0; i < numReaders; i++) {

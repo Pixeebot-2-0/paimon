@@ -18,6 +18,7 @@
 
 package org.apache.paimon.index;
 
+import java.security.SecureRandom;
 import org.apache.paimon.deletionvectors.DeletionVectorsIndexFile;
 import org.apache.paimon.utils.ObjectSerializer;
 import org.apache.paimon.utils.ObjectSerializerTestBase;
@@ -40,7 +41,7 @@ public class IndexFileMetaSerializerTest extends ObjectSerializerTestBase<IndexF
     }
 
     public static IndexFileMeta randomIndexFile() {
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         if (rnd.nextBoolean()) {
             return randomHashIndexFile();
         } else {
@@ -49,7 +50,7 @@ public class IndexFileMetaSerializerTest extends ObjectSerializerTestBase<IndexF
     }
 
     public static IndexFileMeta randomHashIndexFile() {
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         return new IndexFileMeta(
                 HashIndexFile.HASH_INDEX,
                 "my_file_name" + rnd.nextLong(),
@@ -58,7 +59,7 @@ public class IndexFileMetaSerializerTest extends ObjectSerializerTestBase<IndexF
     }
 
     public static IndexFileMeta randomDeletionVectorIndexFile() {
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         LinkedHashMap<String, Pair<Integer, Integer>> deletionVectorsRanges = new LinkedHashMap<>();
         deletionVectorsRanges.put("my_file_name1", Pair.of(rnd.nextInt(), rnd.nextInt()));
         deletionVectorsRanges.put("my_file_name2", Pair.of(rnd.nextInt(), rnd.nextInt()));

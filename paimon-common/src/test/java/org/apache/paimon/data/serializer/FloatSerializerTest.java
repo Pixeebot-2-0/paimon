@@ -18,6 +18,7 @@
 
 package org.apache.paimon.data.serializer;
 
+import java.security.SecureRandom;
 import org.apache.paimon.utils.Pair;
 
 import java.util.Arrays;
@@ -39,7 +40,7 @@ public class FloatSerializerTest extends SerializerTestBase<Float> {
 
     @Override
     protected Float[] getTestData() {
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         float rndFloat = rnd.nextFloat() * Float.MAX_VALUE;
 
         return new Float[] {

@@ -18,6 +18,7 @@
 
 package org.apache.paimon.service.messages;
 
+import java.security.SecureRandom;
 import org.apache.paimon.data.BinaryRow;
 
 import org.apache.paimon.shade.netty4.io.netty.buffer.ByteBuf;
@@ -44,7 +45,7 @@ public class KvResponseTest {
     }
 
     public static KvResponse random() {
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         BinaryRow[] values = new BinaryRow[rnd.nextInt(100)];
         for (int i = 0; i < values.length; i++) {
             if (rnd.nextInt(10) != 0) {

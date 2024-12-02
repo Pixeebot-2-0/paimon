@@ -18,6 +18,7 @@
 
 package org.apache.paimon.service.messages;
 
+import java.security.SecureRandom;
 import org.apache.paimon.data.BinaryRow;
 import org.apache.paimon.data.BinaryRowWriter;
 
@@ -52,7 +53,7 @@ public class KvRequestTest {
     }
 
     public static KvRequest random() {
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         BinaryRow[] keys = new BinaryRow[rnd.nextInt(100)];
         for (int i = 0; i < keys.length; i++) {
             keys[i] = row(rnd.nextInt());

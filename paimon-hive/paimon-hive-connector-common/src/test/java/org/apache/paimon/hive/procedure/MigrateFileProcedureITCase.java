@@ -18,6 +18,7 @@
 
 package org.apache.paimon.hive.procedure;
 
+import java.security.SecureRandom;
 import org.apache.paimon.flink.action.ActionITCaseBase;
 import org.apache.paimon.flink.action.MigrateFileAction;
 import org.apache.paimon.flink.procedure.MigrateFileProcedure;
@@ -181,7 +182,7 @@ public class MigrateFileProcedureITCase extends ActionITCaseBase {
     }
 
     private String data(int i) {
-        Random random = new Random();
+        Random random = new SecureRandom();
         StringBuilder stringBuilder = new StringBuilder();
         for (int m = 0; m < i; m++) {
             stringBuilder.append("(");

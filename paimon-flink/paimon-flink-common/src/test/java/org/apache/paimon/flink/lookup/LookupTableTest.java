@@ -18,6 +18,7 @@
 
 package org.apache.paimon.flink.lookup;
 
+import java.security.SecureRandom;
 import org.apache.paimon.CoreOptions;
 import org.apache.paimon.catalog.Identifier;
 import org.apache.paimon.data.BinaryRow;
@@ -349,7 +350,7 @@ public class LookupTableTest extends TableTestBase {
 
         // test bulk load 100_000 records
         List<Pair<byte[], byte[]>> records = new ArrayList<>();
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         Map<Integer, Set<Integer>> secKeyToPk = new HashMap<>();
         for (int i = 1; i <= 100_000; i++) {
             int secKey = rnd.nextInt(i);
@@ -398,7 +399,7 @@ public class LookupTableTest extends TableTestBase {
         table.open();
 
         List<Pair<byte[], byte[]>> records = new ArrayList<>();
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         Map<Integer, Set<Integer>> secKeyToPk = new HashMap<>();
         for (int i = 1; i <= 10; i++) {
             int secKey = rnd.nextInt(i);
@@ -497,7 +498,7 @@ public class LookupTableTest extends TableTestBase {
 
         // test bulk load 100_000 records
         List<Pair<byte[], byte[]>> records = new ArrayList<>();
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         Map<Integer, List<Integer>> joinKeyToFirst = new HashMap<>();
         for (int i = 1; i <= 100_000; i++) {
             int joinKey = rnd.nextInt(i);

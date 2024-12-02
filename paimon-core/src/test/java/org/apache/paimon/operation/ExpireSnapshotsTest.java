@@ -18,6 +18,7 @@
 
 package org.apache.paimon.operation;
 
+import java.security.SecureRandom;
 import org.apache.paimon.CoreOptions;
 import org.apache.paimon.KeyValue;
 import org.apache.paimon.Snapshot;
@@ -298,7 +299,7 @@ public class ExpireSnapshotsTest {
 
     @Test
     public void testExpireEmptySnapshot() throws Exception {
-        Random random = new Random();
+        Random random = new SecureRandom();
 
         List<KeyValue> allData = new ArrayList<>();
         List<Integer> snapshotPositions = new ArrayList<>();

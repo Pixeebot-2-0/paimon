@@ -18,6 +18,7 @@
 
 package org.apache.paimon.data;
 
+import java.security.SecureRandom;
 import org.apache.paimon.data.serializer.BinaryRowSerializer;
 import org.apache.paimon.data.serializer.InternalArraySerializer;
 import org.apache.paimon.data.serializer.InternalMapSerializer;
@@ -597,7 +598,7 @@ public class BinaryRowTest {
 
         BinaryRow row = new BinaryRow(1);
         BinaryRowWriter writer = new BinaryRowWriter(row);
-        Random random = new Random();
+        Random random = new SecureRandom();
         byte[] bytes = new byte[1024];
         random.nextBytes(bytes);
         writer.writeBinary(0, bytes);
@@ -669,7 +670,7 @@ public class BinaryRowTest {
     @Test
     public void testZeroOutPaddingString() {
 
-        Random random = new Random();
+        Random random = new SecureRandom();
         byte[] bytes = new byte[1024];
 
         BinaryRow row = new BinaryRow(1);

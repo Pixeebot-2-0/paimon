@@ -18,6 +18,7 @@
 
 package org.apache.paimon.format.orc.writer;
 
+import java.security.SecureRandom;
 import org.apache.paimon.data.BinaryString;
 import org.apache.paimon.data.GenericRow;
 import org.apache.paimon.format.FileFormatFactory;
@@ -96,7 +97,7 @@ class OrcZstdTest {
         optionsWithLowLevel.set("orc.stripe.size", "31457280");
         optionsWithLowLevel.set("orc.compression.zstd.level", "1");
 
-        Random random = new Random();
+        Random random = new SecureRandom();
         for (int i = 0; i < 1000; i++) {
             GenericRow element =
                     GenericRow.of(

@@ -18,6 +18,7 @@
 
 package org.apache.paimon.format.parquet;
 
+import java.security.SecureRandom;
 import org.apache.paimon.data.BinaryString;
 import org.apache.paimon.data.Decimal;
 import org.apache.paimon.data.GenericArray;
@@ -189,7 +190,7 @@ public class ParquetReadWriteTest {
     void testTypesReadWithSplits(int rowGroupSize) throws IOException {
         int number = 10000;
         List<Integer> values = new ArrayList<>(number);
-        Random random = new Random();
+        Random random = new SecureRandom();
         for (int i = 0; i < number; i++) {
             int v = random.nextInt(number / 2);
             values.add(v % 10 == 0 ? null : v);
@@ -203,7 +204,7 @@ public class ParquetReadWriteTest {
     void testDictionary(int rowGroupSize) throws IOException {
         int number = 10000;
         List<Integer> values = new ArrayList<>(number);
-        Random random = new Random();
+        Random random = new SecureRandom();
         int[] intValues = new int[10];
         // test large values in dictionary
         for (int i = 0; i < intValues.length; i++) {
@@ -223,7 +224,7 @@ public class ParquetReadWriteTest {
         // prepare parquet file
         int number = 10000;
         List<Integer> values = new ArrayList<>(number);
-        Random random = new Random();
+        Random random = new SecureRandom();
         int[] intValues = new int[10];
         // test large values in dictionary
         for (int i = 0; i < intValues.length; i++) {
@@ -242,7 +243,7 @@ public class ParquetReadWriteTest {
     void testContinuousRepetition(int rowGroupSize) throws IOException {
         int number = 10000;
         List<Integer> values = new ArrayList<>(number);
-        Random random = new Random();
+        Random random = new SecureRandom();
         for (int i = 0; i < 100; i++) {
             int v = random.nextInt(10);
             for (int j = 0; j < 100; j++) {
@@ -258,7 +259,7 @@ public class ParquetReadWriteTest {
     void testLargeValue(int rowGroupSize) throws IOException {
         int number = 10000;
         List<Integer> values = new ArrayList<>(number);
-        Random random = new Random();
+        Random random = new SecureRandom();
         for (int i = 0; i < number; i++) {
             int v = random.nextInt();
             values.add(v % 10 == 0 ? null : v);
@@ -353,9 +354,9 @@ public class ParquetReadWriteTest {
 
     @RepeatedTest(10)
     void testReadRowPosition() throws IOException {
-        int recordNumber = new Random().nextInt(10000) + 1;
-        int batchSize = new Random().nextInt(1000) + 1;
-        int rowGroupSize = new Random().nextInt(1000) + 1;
+        int recordNumber = new SecureRandom().nextInt(10000) + 1;
+        int batchSize = new SecureRandom().nextInt(1000) + 1;
+        int rowGroupSize = new SecureRandom().nextInt(1000) + 1;
         List<InternalRow> records = new ArrayList<>(recordNumber);
         for (int i = 0; i < recordNumber; i++) {
             Integer v = i;
@@ -391,13 +392,13 @@ public class ParquetReadWriteTest {
 
     @RepeatedTest(10)
     void testReadRowPositionWithRandomFilter() throws IOException {
-        int recordNumber = new Random().nextInt(10000) + 1;
-        int batchSize = new Random().nextInt(1000) + 1;
+        int recordNumber = new SecureRandom().nextInt(10000) + 1;
+        int batchSize = new SecureRandom().nextInt(1000) + 1;
         // make row group size = 1, then the row count in one row group will be
         // `parquet.page.size.row.check.min`, which default value is 100
         int rowGroupSize = 1;
         int rowGroupCount = 100;
-        int randomStart = new Random().nextInt(10000) + 1;
+        int randomStart = new SecureRandom().nextInt(10000) + 1;
         List<InternalRow> records = new ArrayList<>(recordNumber);
         for (int i = 0; i < recordNumber; i++) {
             Integer v = i;
@@ -572,7 +573,7 @@ public class ParquetReadWriteTest {
         ParquetWriterFactory factory =
                 new ParquetWriterFactory(new RowDataParquetBuilder(rowType, conf));
         String[] candidates = new String[] {"snappy", "zstd", "gzip"};
-        String compress = candidates[new Random().nextInt(3)];
+        String compress = candidates[new SecureRandom().nextInt(3)];
         FormatWriter writer =
                 factory.create(new LocalFileIO().newOutputStream(path, false), compress);
         for (InternalRow row : rows) {

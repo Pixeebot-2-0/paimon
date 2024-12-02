@@ -18,6 +18,7 @@
 
 package org.apache.paimon.flink.utils;
 
+import java.security.SecureRandom;
 import org.apache.paimon.data.BinaryString;
 import org.apache.paimon.data.GenericRow;
 import org.apache.paimon.data.InternalRow;
@@ -35,7 +36,7 @@ import java.util.Random;
 /** Tests for {@link InternalRowTypeSerializer}. */
 public class InternalRowSerializerTest {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
     private static final RowType rowType =
             RowType.builder()
                     .field("a", DataTypes.STRING())

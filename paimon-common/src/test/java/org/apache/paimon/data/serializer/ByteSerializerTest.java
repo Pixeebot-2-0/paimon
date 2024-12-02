@@ -18,6 +18,7 @@
 
 package org.apache.paimon.data.serializer;
 
+import java.security.SecureRandom;
 import org.apache.paimon.utils.Pair;
 
 import java.util.Arrays;
@@ -39,7 +40,7 @@ public class ByteSerializerTest extends SerializerTestBase<Byte> {
 
     @Override
     protected Byte[] getTestData() {
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         byte rndShort = (byte) rnd.nextInt();
 
         return new Byte[] {0, 1, -1, Byte.MAX_VALUE, Byte.MIN_VALUE, rndShort, (byte) -rndShort};
