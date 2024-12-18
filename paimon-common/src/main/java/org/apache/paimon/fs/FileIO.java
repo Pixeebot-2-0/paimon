@@ -18,6 +18,7 @@
 
 package org.apache.paimon.fs;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.apache.paimon.annotation.Public;
 import org.apache.paimon.catalog.CatalogContext;
 import org.apache.paimon.fs.hadoop.HadoopFileIOLoader;
@@ -219,7 +220,7 @@ public interface FileIO extends Serializable {
                     new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
             StringBuilder builder = new StringBuilder();
             String line;
-            while ((line = reader.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                 builder.append(line);
             }
             return builder.toString();
