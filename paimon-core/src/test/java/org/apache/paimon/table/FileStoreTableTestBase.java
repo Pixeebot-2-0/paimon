@@ -511,7 +511,7 @@ public abstract class FileStoreTableTestBase {
     @Test
     public void testReadFilter() throws Exception {
         FileStoreTable table = createFileStoreTable();
-        if (table.coreOptions().fileFormat().getFormatIdentifier().equals("parquet")) {
+        if ("parquet".equals(table.coreOptions().fileFormat().getFormatIdentifier())) {
             // TODO support parquet reader filter push down
             return;
         }

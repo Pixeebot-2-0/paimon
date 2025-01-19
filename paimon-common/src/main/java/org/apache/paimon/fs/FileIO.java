@@ -349,7 +349,7 @@ public interface FileIO extends Serializable {
         }
 
         // print a helpful pointer for malformed local URIs (happens a lot to new users)
-        if (uri.getScheme().equals("file")
+        if ("file".equals(uri.getScheme())
                 && uri.getAuthority() != null
                 && !uri.getAuthority().isEmpty()) {
             String supposedUri = "file:///" + uri.getAuthority() + uri.getPath();

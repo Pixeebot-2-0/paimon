@@ -145,7 +145,7 @@ public class ArrowBatchConverterTest {
     }
 
     private void testDv(boolean testDv) {
-        assumeThat(testMode.equals("vectorized_with_dv")).isEqualTo(testDv);
+        assumeThat("vectorized_with_dv".equals(testMode)).isEqualTo(testDv);
     }
 
     @BeforeEach
@@ -881,12 +881,12 @@ public class ArrowBatchConverterTest {
             RowType rowType,
             VectorSchemaRoot vsr) {
         ArrowFieldWriter[] fieldWriters = ArrowUtils.createArrowFieldWriters(vsr, rowType);
-        if (testMode.equals("vectorized_without_dv")) {
+        if ("vectorized_without_dv".equals(testMode)) {
             ArrowVectorizedBatchConverter batchWriter =
                     new ArrowVectorizedBatchConverter(vsr, fieldWriters);
             batchWriter.reset((VectorizedRecordIterator) iterator);
             return batchWriter;
-        } else if (testMode.equals("vectorized_with_dv")) {
+        } else if ("vectorized_with_dv".equals(testMode)) {
             ArrowVectorizedBatchConverter batchWriter =
                     new ArrowVectorizedBatchConverter(vsr, fieldWriters);
             batchWriter.reset((ApplyDeletionFileRecordIterator) iterator);

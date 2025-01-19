@@ -1413,7 +1413,7 @@ public class ReadWriteTableITCase extends AbstractTestBase {
         // Step4: execute update statement and verify result
         bEnv.executeSql(updateStatement).await();
         String querySql = String.format("SELECT * FROM %s", table);
-        String rowKind = mergeEngine.equals("deduplicate") ? "+U" : "+I";
+        String rowKind = "deduplicate".equals(mergeEngine) ? "+U" : "+I";
         testBatchRead(
                 querySql,
                 Arrays.asList(

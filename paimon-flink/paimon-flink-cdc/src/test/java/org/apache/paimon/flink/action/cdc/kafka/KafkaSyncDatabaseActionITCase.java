@@ -175,7 +175,7 @@ public class KafkaSyncDatabaseActionITCase extends KafkaActionITCaseBase {
                         },
                         new String[] {"id", "name", "description", "weight", "address"});
 
-        if (format.equals("debezium")) {
+        if ("debezium".equals(format)) {
             expected =
                     Arrays.asList(
                             "+I[103, 12-pack drill bits, 12-pack of drill bits with sizes ranging from #40 to #3, 0.8, NULL]",
@@ -360,7 +360,7 @@ public class KafkaSyncDatabaseActionITCase extends KafkaActionITCaseBase {
                             DataTypes.STRING()
                         },
                         new String[] {"id", "name", "description", "weight", "address"});
-        if (format.equals("debezium")) {
+        if ("debezium".equals(format)) {
             expected =
                     Arrays.asList(
                             "+I[101, scooter, Small 2-wheel scooter, 3.14, Beijing]",
@@ -385,7 +385,7 @@ public class KafkaSyncDatabaseActionITCase extends KafkaActionITCaseBase {
                             DataTypes.STRING()
                         },
                         new String[] {"id", "name", "description", "weight", "age"});
-        if (format.equals("debezium")) {
+        if ("debezium".equals(format)) {
             expected =
                     Arrays.asList(
                             "+I[103, 12-pack drill bits, 12-pack of drill bits with sizes ranging from #40 to #3, 0.8, 19]",
@@ -499,17 +499,17 @@ public class KafkaSyncDatabaseActionITCase extends KafkaActionITCaseBase {
     }
 
     private DataType getDataType(String format) {
-        return format.equals("debezium") ? DataTypes.STRING() : DataTypes.STRING().notNull();
+        return "debezium".equals(format) ? DataTypes.STRING() : DataTypes.STRING().notNull();
     }
 
     private List<String> getPrimaryKey(String format) {
-        return format.equals("debezium")
+        return "debezium".equals(format)
                 ? Collections.emptyList()
                 : Collections.singletonList("id");
     }
 
     private List<String> getBucketKey(String format) {
-        return format.equals("debezium")
+        return "debezium".equals(format)
                 ? Collections.singletonList("id")
                 : Collections.emptyList();
     }

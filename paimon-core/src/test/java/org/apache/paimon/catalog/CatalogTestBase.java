@@ -828,7 +828,7 @@ public abstract class CatalogTestBase {
                 identifier, Lists.newArrayList(SchemaChange.updateComment("new comment")), false);
 
         Table table = catalog.getTable(identifier);
-        assertThat(table.comment().isPresent() && table.comment().get().equals("new comment"))
+        assertThat(table.comment().isPresent() && "new comment".equals(table.comment().get()))
                 .isTrue();
 
         // drop comment

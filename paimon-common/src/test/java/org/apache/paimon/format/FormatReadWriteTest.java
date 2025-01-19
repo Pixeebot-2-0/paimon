@@ -264,7 +264,7 @@ public abstract class FormatReadWriteTest {
     }
 
     private DataType getMapValueType() {
-        if (formatType.equals("avro") || formatType.equals("orc")) {
+        if ("avro".equals(formatType) || "orc".equals(formatType)) {
             return DataTypes.ROW(
                     DataTypes.FIELD(0, "posX", DataTypes.DOUBLE().notNull(), "X field"),
                     DataTypes.FIELD(1, "posY", DataTypes.DOUBLE().notNull(), "Y field"));
@@ -274,7 +274,7 @@ public abstract class FormatReadWriteTest {
     }
 
     private Object[] getMapValueData() {
-        if (formatType.equals("avro") || formatType.equals("orc")) {
+        if ("avro".equals(formatType) || "orc".equals(formatType)) {
             // allow nested row in array
             return new Object[] {GenericRow.of(5.2D, 6.2D), GenericRow.of(6.2D, 2.2D)};
         } else {
@@ -283,7 +283,7 @@ public abstract class FormatReadWriteTest {
     }
 
     private void validateFullTypesResult(InternalRow actual, InternalRow expected) {
-        if (formatType.equals("avro")) {
+        if ("avro".equals(formatType)) {
             assertThat(actual).isEqualTo(expected);
         } else {
             RowType rowType = rowTypeForFullTypesTest();
@@ -323,7 +323,7 @@ public abstract class FormatReadWriteTest {
                                 (InternalArray) expectedField,
                                 ((ArrayType)
                                                 rowType.getFields().stream()
-                                                        .filter(f -> f.name().equals("rowArray"))
+                                                        .filter(f -> "rowArray".equals(f.name()))
                                                         .findAny()
                                                         .get()
                                                         .type())

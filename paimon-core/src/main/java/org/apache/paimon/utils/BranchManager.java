@@ -74,7 +74,7 @@ public class BranchManager {
     }
 
     public static boolean isMainBranch(String branch) {
-        return branch.equals(DEFAULT_MAIN_BRANCH);
+        return DEFAULT_MAIN_BRANCH.equals(branch);
     }
 
     /** Return the path string of a branch. */
@@ -157,7 +157,7 @@ public class BranchManager {
 
     public void fastForward(String branchName) {
         checkArgument(
-                !branchName.equals(DEFAULT_MAIN_BRANCH),
+                !DEFAULT_MAIN_BRANCH.equals(branchName),
                 "Branch name '%s' do not use in fast-forward.",
                 branchName);
         checkArgument(

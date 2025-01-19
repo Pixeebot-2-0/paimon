@@ -369,11 +369,11 @@ public class MySqlTypeUtils {
     }
 
     public static boolean isEnumType(String shortType) {
-        return shortType.equals(ENUM);
+        return ENUM.equals(shortType);
     }
 
     public static boolean isSetType(String shortType) {
-        return shortType.equals(SET);
+        return SET.equals(shortType);
     }
 
     private static boolean isDecimalType(String shortType) {

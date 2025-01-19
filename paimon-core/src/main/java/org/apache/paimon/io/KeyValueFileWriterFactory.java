@@ -249,7 +249,7 @@ public class KeyValueFileWriterFactory {
                 // stats
                 format2Extractor.put(
                         format,
-                        format.equals("avro")
+                        "avro".equals(format)
                                 ? Optional.empty()
                                 : fileFormat.createStatsExtractor(
                                         rowType, statsCollectorFactories));

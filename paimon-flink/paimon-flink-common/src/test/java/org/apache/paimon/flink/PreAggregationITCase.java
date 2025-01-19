@@ -1588,7 +1588,7 @@ public class PreAggregationITCase {
         @MethodSource("retractArguments")
         public void testRetract(String changelogProducer, String mergeEngine) throws Exception {
             String sequenceGroup = "";
-            if (mergeEngine.equals("partial-update")) {
+            if ("partial-update".equals(mergeEngine)) {
                 sequenceGroup = ", 'fields.f1.sequence-group' = 'f0'";
             }
             sql(

@@ -637,12 +637,12 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("ListBucketResult")) {
-                if (name.equals("Contents")) {
+                if ("Contents".equals(name)) {
                     currentObject = new S3ObjectSummary();
                     currentObject.setBucketName(objectListing.getBucketName());
                 }
             } else if (in("ListBucketResult", "Contents")) {
-                if (name.equals("Owner")) {
+                if ("Owner".equals(name)) {
                     currentOwner = new Owner();
                 }
             }
@@ -651,7 +651,7 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (atTopLevel()) {
-                if (name.equals("ListBucketResult")) {
+                if ("ListBucketResult".equals(name)) {
                     /*
                      * S3 only includes the NextMarker XML element if the
                      * request specified a delimiter, but for consistency we'd
@@ -684,38 +684,38 @@ public class XmlResponsesSaxParser {
                     }
                 }
             } else if (in("ListBucketResult")) {
-                if (name.equals("Name")) {
+                if ("Name".equals(name)) {
                     objectListing.setBucketName(getText());
                     if (log.isDebugEnabled()) {
                         log.debug("Examining listing for bucket: " + objectListing.getBucketName());
                     }
 
-                } else if (name.equals("Prefix")) {
+                } else if ("Prefix".equals(name)) {
                     objectListing.setPrefix(
                             decodeIfSpecified(
                                     checkForEmptyString(getText()), shouldSDKDecodeResponse));
 
-                } else if (name.equals("Marker")) {
+                } else if ("Marker".equals(name)) {
                     objectListing.setMarker(
                             decodeIfSpecified(
                                     checkForEmptyString(getText()), shouldSDKDecodeResponse));
 
-                } else if (name.equals("NextMarker")) {
+                } else if ("NextMarker".equals(name)) {
                     objectListing.setNextMarker(
                             decodeIfSpecified(getText(), shouldSDKDecodeResponse));
 
-                } else if (name.equals("MaxKeys")) {
+                } else if ("MaxKeys".equals(name)) {
                     objectListing.setMaxKeys(parseInt(getText()));
 
-                } else if (name.equals("Delimiter")) {
+                } else if ("Delimiter".equals(name)) {
                     objectListing.setDelimiter(
                             decodeIfSpecified(
                                     checkForEmptyString(getText()), shouldSDKDecodeResponse));
 
-                } else if (name.equals("EncodingType")) {
+                } else if ("EncodingType".equals(name)) {
                     objectListing.setEncodingType(
                             shouldSDKDecodeResponse ? null : checkForEmptyString(getText()));
-                } else if (name.equals("IsTruncated")) {
+                } else if ("IsTruncated".equals(name)) {
                     String isTruncatedStr = StringUtils.lowerCase(getText());
 
                     if (isTruncatedStr.startsWith("false")) {
@@ -727,39 +727,39 @@ public class XmlResponsesSaxParser {
                                 "Invalid value for IsTruncated field: " + isTruncatedStr);
                     }
 
-                } else if (name.equals("Contents")) {
+                } else if ("Contents".equals(name)) {
                     objectListing.getObjectSummaries().add(currentObject);
                     currentObject = null;
                 }
             } else if (in("ListBucketResult", "Contents")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     lastKey = getText();
                     currentObject.setKey(decodeIfSpecified(lastKey, shouldSDKDecodeResponse));
-                } else if (name.equals("LastModified")) {
+                } else if ("LastModified".equals(name)) {
                     currentObject.setLastModified(ServiceUtils.parseIso8601Date(getText()));
 
-                } else if (name.equals("ETag")) {
+                } else if ("ETag".equals(name)) {
                     currentObject.setETag(ServiceUtils.removeQuotes(getText()));
 
-                } else if (name.equals("Size")) {
+                } else if ("Size".equals(name)) {
                     currentObject.setSize(parseLong(getText()));
 
-                } else if (name.equals("StorageClass")) {
+                } else if ("StorageClass".equals(name)) {
                     currentObject.setStorageClass(getText());
 
-                } else if (name.equals("Owner")) {
+                } else if ("Owner".equals(name)) {
                     currentObject.setOwner(currentOwner);
                     currentOwner = null;
                 }
             } else if (in("ListBucketResult", "Contents", "Owner")) {
-                if (name.equals("ID")) {
+                if ("ID".equals(name)) {
                     currentOwner.setId(getText());
 
-                } else if (name.equals("DisplayName")) {
+                } else if ("DisplayName".equals(name)) {
                     currentOwner.setDisplayName(getText());
                 }
             } else if (in("ListBucketResult", "CommonPrefixes")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     objectListing
                             .getCommonPrefixes()
                             .add(decodeIfSpecified(getText(), shouldSDKDecodeResponse));
@@ -789,12 +789,12 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("ListBucketResult")) {
-                if (name.equals("Contents")) {
+                if ("Contents".equals(name)) {
                     currentObject = new S3ObjectSummary();
                     currentObject.setBucketName(result.getBucketName());
                 }
             } else if (in("ListBucketResult", "Contents")) {
-                if (name.equals("Owner")) {
+                if ("Owner".equals(name)) {
                     currentOwner = new Owner();
                 }
             }
@@ -803,7 +803,7 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (atTopLevel()) {
-                if (name.equals("ListBucketResult")) {
+                if ("ListBucketResult".equals(name)) {
                     /*
                      * S3 only includes the NextContinuationToken XML element if the
                      * request specified a delimiter, but for consistency we'd
@@ -829,40 +829,40 @@ public class XmlResponsesSaxParser {
                     }
                 }
             } else if (in("ListBucketResult")) {
-                if (name.equals("Name")) {
+                if ("Name".equals(name)) {
                     result.setBucketName(getText());
                     if (log.isDebugEnabled()) {
                         log.debug("Examining listing for bucket: " + result.getBucketName());
                     }
 
-                } else if (name.equals("Prefix")) {
+                } else if ("Prefix".equals(name)) {
                     result.setPrefix(
                             decodeIfSpecified(
                                     checkForEmptyString(getText()), shouldSDKDecodeResponse));
 
-                } else if (name.equals("MaxKeys")) {
+                } else if ("MaxKeys".equals(name)) {
                     result.setMaxKeys(parseInt(getText()));
 
-                } else if (name.equals("NextContinuationToken")) {
+                } else if ("NextContinuationToken".equals(name)) {
                     result.setNextContinuationToken(getText());
 
-                } else if (name.equals("ContinuationToken")) {
+                } else if ("ContinuationToken".equals(name)) {
                     result.setContinuationToken(getText());
 
-                } else if (name.equals("StartAfter")) {
+                } else if ("StartAfter".equals(name)) {
                     result.setStartAfter(decodeIfSpecified(getText(), shouldSDKDecodeResponse));
 
-                } else if (name.equals("KeyCount")) {
+                } else if ("KeyCount".equals(name)) {
                     result.setKeyCount(parseInt(getText()));
 
-                } else if (name.equals("Delimiter")) {
+                } else if ("Delimiter".equals(name)) {
                     result.setDelimiter(
                             decodeIfSpecified(
                                     checkForEmptyString(getText()), shouldSDKDecodeResponse));
 
-                } else if (name.equals("EncodingType")) {
+                } else if ("EncodingType".equals(name)) {
                     result.setEncodingType(checkForEmptyString(getText()));
-                } else if (name.equals("IsTruncated")) {
+                } else if ("IsTruncated".equals(name)) {
                     String isTruncatedStr = StringUtils.lowerCase(getText());
 
                     if (isTruncatedStr.startsWith("false")) {
@@ -874,39 +874,39 @@ public class XmlResponsesSaxParser {
                                 "Invalid value for IsTruncated field: " + isTruncatedStr);
                     }
 
-                } else if (name.equals("Contents")) {
+                } else if ("Contents".equals(name)) {
                     result.getObjectSummaries().add(currentObject);
                     currentObject = null;
                 }
             } else if (in("ListBucketResult", "Contents")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     lastKey = getText();
                     currentObject.setKey(decodeIfSpecified(lastKey, shouldSDKDecodeResponse));
-                } else if (name.equals("LastModified")) {
+                } else if ("LastModified".equals(name)) {
                     currentObject.setLastModified(ServiceUtils.parseIso8601Date(getText()));
 
-                } else if (name.equals("ETag")) {
+                } else if ("ETag".equals(name)) {
                     currentObject.setETag(ServiceUtils.removeQuotes(getText()));
 
-                } else if (name.equals("Size")) {
+                } else if ("Size".equals(name)) {
                     currentObject.setSize(parseLong(getText()));
 
-                } else if (name.equals("StorageClass")) {
+                } else if ("StorageClass".equals(name)) {
                     currentObject.setStorageClass(getText());
 
-                } else if (name.equals("Owner")) {
+                } else if ("Owner".equals(name)) {
                     currentObject.setOwner(currentOwner);
                     currentOwner = null;
                 }
             } else if (in("ListBucketResult", "Contents", "Owner")) {
-                if (name.equals("ID")) {
+                if ("ID".equals(name)) {
                     currentOwner.setId(getText());
 
-                } else if (name.equals("DisplayName")) {
+                } else if ("DisplayName".equals(name)) {
                     currentOwner.setDisplayName(getText());
                 }
             } else if (in("ListBucketResult", "CommonPrefixes")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     result.getCommonPrefixes()
                             .add(decodeIfSpecified(getText(), shouldSDKDecodeResponse));
                 }
@@ -939,11 +939,11 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("ListAllMyBucketsResult")) {
-                if (name.equals("Owner")) {
+                if ("Owner".equals(name)) {
                     bucketsOwner = new Owner();
                 }
             } else if (in("ListAllMyBucketsResult", "Buckets")) {
-                if (name.equals("Bucket")) {
+                if ("Bucket".equals(name)) {
                     currentBucket = new Bucket();
                     currentBucket.setOwner(bucketsOwner);
                 }
@@ -953,22 +953,22 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("ListAllMyBucketsResult", "Owner")) {
-                if (name.equals("ID")) {
+                if ("ID".equals(name)) {
                     bucketsOwner.setId(getText());
 
-                } else if (name.equals("DisplayName")) {
+                } else if ("DisplayName".equals(name)) {
                     bucketsOwner.setDisplayName(getText());
                 }
             } else if (in("ListAllMyBucketsResult", "Buckets")) {
-                if (name.equals("Bucket")) {
+                if ("Bucket".equals(name)) {
                     buckets.add(currentBucket);
                     currentBucket = null;
                 }
             } else if (in("ListAllMyBucketsResult", "Buckets", "Bucket")) {
-                if (name.equals("Name")) {
+                if ("Name".equals(name)) {
                     currentBucket.setName(getText());
 
-                } else if (name.equals("CreationDate")) {
+                } else if ("CreationDate".equals(name)) {
                     Date creationDate = DateUtils.parseISO8601Date(getText());
                     currentBucket.setCreationDate(creationDate);
                 }
@@ -996,11 +996,11 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("AccessControlPolicy")) {
-                if (name.equals("Owner")) {
+                if ("Owner".equals(name)) {
                     accessControlList.setOwner(new Owner());
                 }
             } else if (in("AccessControlPolicy", "AccessControlList", "Grant")) {
-                if (name.equals("Grantee")) {
+                if ("Grantee".equals(name)) {
                     String type = XmlResponsesSaxParser.findAttributeValue("xsi:type", attrs);
 
                     if ("AmazonCustomerByEmail".equals(type)) {
@@ -1020,30 +1020,30 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("AccessControlPolicy", "Owner")) {
-                if (name.equals("ID")) {
+                if ("ID".equals(name)) {
                     accessControlList.getOwner().setId(getText());
-                } else if (name.equals("DisplayName")) {
+                } else if ("DisplayName".equals(name)) {
                     accessControlList.getOwner().setDisplayName(getText());
                 }
             } else if (in("AccessControlPolicy", "AccessControlList")) {
-                if (name.equals("Grant")) {
+                if ("Grant".equals(name)) {
                     accessControlList.grantPermission(currentGrantee, currentPermission);
 
                     currentGrantee = null;
                     currentPermission = null;
                 }
             } else if (in("AccessControlPolicy", "AccessControlList", "Grant")) {
-                if (name.equals("Permission")) {
+                if ("Permission".equals(name)) {
                     currentPermission = Permission.parsePermission(getText());
                 }
             } else if (in("AccessControlPolicy", "AccessControlList", "Grant", "Grantee")) {
-                if (name.equals("ID")) {
+                if ("ID".equals(name)) {
                     currentGrantee.setIdentifier(getText());
 
-                } else if (name.equals("EmailAddress")) {
+                } else if ("EmailAddress".equals(name)) {
                     currentGrantee.setIdentifier(getText());
 
-                } else if (name.equals("URI")) {
+                } else if ("URI".equals(name)) {
                     /*
                      * Only GroupGrantees contain an URI element in them, and we
                      * can't construct currentGrantee during startElement for a
@@ -1051,7 +1051,7 @@ public class XmlResponsesSaxParser {
                      */
                     currentGrantee = GroupGrantee.parseGroupGrantee(getText());
 
-                } else if (name.equals("DisplayName")) {
+                } else if ("DisplayName".equals(name)) {
                     ((CanonicalGrantee) currentGrantee).setDisplayName(getText());
                 }
             }
@@ -1079,10 +1079,10 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("BucketLoggingStatus", "LoggingEnabled")) {
-                if (name.equals("TargetBucket")) {
+                if ("TargetBucket".equals(name)) {
                     bucketLoggingConfiguration.setDestinationBucketName(getText());
 
-                } else if (name.equals("TargetPrefix")) {
+                } else if ("TargetPrefix".equals(name)) {
                     bucketLoggingConfiguration.setLogFilePrefix(getText());
                 }
             }
@@ -1109,7 +1109,7 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (atTopLevel()) {
-                if (name.equals("LocationConstraint")) {
+                if ("LocationConstraint".equals(name)) {
                     String elementText = getText();
                     if (elementText.length() == 0) {
                         location = null;
@@ -1209,9 +1209,9 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (atTopLevel()) {
-                if (name.equals("CopyObjectResult") || name.equals("CopyPartResult")) {
+                if ("CopyObjectResult".equals(name) || "CopyPartResult".equals(name)) {
                     receivedErrorResponse = false;
-                } else if (name.equals("Error")) {
+                } else if ("Error".equals(name)) {
                     receivedErrorResponse = true;
                 }
             }
@@ -1220,19 +1220,19 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("CopyObjectResult") || in("CopyPartResult")) {
-                if (name.equals("LastModified")) {
+                if ("LastModified".equals(name)) {
                     result.setLastModifiedDate(ServiceUtils.parseIso8601Date(getText()));
-                } else if (name.equals("ETag")) {
+                } else if ("ETag".equals(name)) {
                     result.setETag(ServiceUtils.removeQuotes(getText()));
                 }
             } else if (in("Error")) {
-                if (name.equals("Code")) {
+                if ("Code".equals(name)) {
                     errorCode = getText();
-                } else if (name.equals("Message")) {
+                } else if ("Message".equals(name)) {
                     errorMessage = getText();
-                } else if (name.equals("RequestId")) {
+                } else if ("RequestId".equals(name)) {
                     errorRequestId = getText();
-                } else if (name.equals("HostId")) {
+                } else if ("HostId".equals(name)) {
                     errorHostId = getText();
                 }
             }
@@ -1257,7 +1257,7 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("RequestPaymentConfiguration")) {
-                if (name.equals("Payer")) {
+                if ("Payer".equals(name)) {
                     payer = getText();
                 }
             }
@@ -1285,18 +1285,18 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("ListVersionsResult")) {
-                if (name.equals("Version")) {
+                if ("Version".equals(name)) {
                     currentVersionSummary = new S3VersionSummary();
                     currentVersionSummary.setBucketName(versionListing.getBucketName());
 
-                } else if (name.equals("DeleteMarker")) {
+                } else if ("DeleteMarker".equals(name)) {
                     currentVersionSummary = new S3VersionSummary();
                     currentVersionSummary.setBucketName(versionListing.getBucketName());
                     currentVersionSummary.setIsDeleteMarker(true);
                 }
             } else if (in("ListVersionsResult", "Version")
                     || in("ListVersionsResult", "DeleteMarker")) {
-                if (name.equals("Owner")) {
+                if ("Owner".equals(name)) {
                     currentOwner = new Owner();
                 }
             }
@@ -1306,50 +1306,50 @@ public class XmlResponsesSaxParser {
         protected void doEndElement(String uri, String name, String qName) {
 
             if (in("ListVersionsResult")) {
-                if (name.equals("Name")) {
+                if ("Name".equals(name)) {
                     versionListing.setBucketName(getText());
 
-                } else if (name.equals("Prefix")) {
+                } else if ("Prefix".equals(name)) {
                     versionListing.setPrefix(
                             decodeIfSpecified(
                                     checkForEmptyString(getText()), shouldSDKDecodeResponse));
-                } else if (name.equals("KeyMarker")) {
+                } else if ("KeyMarker".equals(name)) {
                     versionListing.setKeyMarker(
                             decodeIfSpecified(
                                     checkForEmptyString(getText()), shouldSDKDecodeResponse));
-                } else if (name.equals("VersionIdMarker")) {
+                } else if ("VersionIdMarker".equals(name)) {
                     versionListing.setVersionIdMarker(checkForEmptyString(getText()));
 
-                } else if (name.equals("MaxKeys")) {
+                } else if ("MaxKeys".equals(name)) {
                     versionListing.setMaxKeys(Integer.parseInt(getText()));
 
-                } else if (name.equals("Delimiter")) {
+                } else if ("Delimiter".equals(name)) {
                     versionListing.setDelimiter(
                             decodeIfSpecified(
                                     checkForEmptyString(getText()), shouldSDKDecodeResponse));
 
-                } else if (name.equals("EncodingType")) {
+                } else if ("EncodingType".equals(name)) {
                     versionListing.setEncodingType(
                             shouldSDKDecodeResponse ? null : checkForEmptyString(getText()));
-                } else if (name.equals("NextKeyMarker")) {
+                } else if ("NextKeyMarker".equals(name)) {
                     versionListing.setNextKeyMarker(
                             decodeIfSpecified(
                                     checkForEmptyString(getText()), shouldSDKDecodeResponse));
 
-                } else if (name.equals("NextVersionIdMarker")) {
+                } else if ("NextVersionIdMarker".equals(name)) {
                     versionListing.setNextVersionIdMarker(getText());
 
-                } else if (name.equals("IsTruncated")) {
+                } else if ("IsTruncated".equals(name)) {
                     versionListing.setTruncated("true".equals(getText()));
 
-                } else if (name.equals("Version") || name.equals("DeleteMarker")) {
+                } else if ("Version".equals(name) || "DeleteMarker".equals(name)) {
 
                     versionListing.getVersionSummaries().add(currentVersionSummary);
 
                     currentVersionSummary = null;
                 }
             } else if (in("ListVersionsResult", "CommonPrefixes")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     final String commonPrefix = checkForEmptyString(getText());
                     versionListing
                             .getCommonPrefixes()
@@ -1361,38 +1361,38 @@ public class XmlResponsesSaxParser {
             } else if (in("ListVersionsResult", "Version")
                     || in("ListVersionsResult", "DeleteMarker")) {
 
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentVersionSummary.setKey(
                             decodeIfSpecified(getText(), shouldSDKDecodeResponse));
 
-                } else if (name.equals("VersionId")) {
+                } else if ("VersionId".equals(name)) {
                     currentVersionSummary.setVersionId(getText());
 
-                } else if (name.equals("IsLatest")) {
+                } else if ("IsLatest".equals(name)) {
                     currentVersionSummary.setIsLatest("true".equals(getText()));
 
-                } else if (name.equals("LastModified")) {
+                } else if ("LastModified".equals(name)) {
                     currentVersionSummary.setLastModified(ServiceUtils.parseIso8601Date(getText()));
 
-                } else if (name.equals("ETag")) {
+                } else if ("ETag".equals(name)) {
                     currentVersionSummary.setETag(ServiceUtils.removeQuotes(getText()));
 
-                } else if (name.equals("Size")) {
+                } else if ("Size".equals(name)) {
                     currentVersionSummary.setSize(Long.parseLong(getText()));
 
-                } else if (name.equals("Owner")) {
+                } else if ("Owner".equals(name)) {
                     currentVersionSummary.setOwner(currentOwner);
                     currentOwner = null;
 
-                } else if (name.equals("StorageClass")) {
+                } else if ("StorageClass".equals(name)) {
                     currentVersionSummary.setStorageClass(getText());
                 }
             } else if (in("ListVersionsResult", "Version", "Owner")
                     || in("ListVersionsResult", "DeleteMarker", "Owner")) {
 
-                if (name.equals("ID")) {
+                if ("ID".equals(name)) {
                     currentOwner.setId(getText());
-                } else if (name.equals("DisplayName")) {
+                } else if ("DisplayName".equals(name)) {
                     currentOwner.setDisplayName(getText());
                 }
             }
@@ -1416,17 +1416,17 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("WebsiteConfiguration")) {
-                if (name.equals("RedirectAllRequestsTo")) {
+                if ("RedirectAllRequestsTo".equals(name)) {
                     currentRedirectRule = new RedirectRule();
                 }
             } else if (in("WebsiteConfiguration", "RoutingRules")) {
-                if (name.equals("RoutingRule")) {
+                if ("RoutingRule".equals(name)) {
                     currentRoutingRule = new RoutingRule();
                 }
             } else if (in("WebsiteConfiguration", "RoutingRules", "RoutingRule")) {
-                if (name.equals("Condition")) {
+                if ("Condition".equals(name)) {
                     currentCondition = new RoutingRuleCondition();
-                } else if (name.equals("Redirect")) {
+                } else if ("Redirect".equals(name)) {
                     currentRedirectRule = new RedirectRule();
                 }
             }
@@ -1435,53 +1435,53 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("WebsiteConfiguration")) {
-                if (name.equals("RedirectAllRequestsTo")) {
+                if ("RedirectAllRequestsTo".equals(name)) {
                     configuration.setRedirectAllRequestsTo(currentRedirectRule);
                     currentRedirectRule = null;
                 }
             } else if (in("WebsiteConfiguration", "IndexDocument")) {
-                if (name.equals("Suffix")) {
+                if ("Suffix".equals(name)) {
                     configuration.setIndexDocumentSuffix(getText());
                 }
             } else if (in("WebsiteConfiguration", "ErrorDocument")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     configuration.setErrorDocument(getText());
                 }
             } else if (in("WebsiteConfiguration", "RoutingRules")) {
-                if (name.equals("RoutingRule")) {
+                if ("RoutingRule".equals(name)) {
                     configuration.getRoutingRules().add(currentRoutingRule);
                     currentRoutingRule = null;
                 }
             } else if (in("WebsiteConfiguration", "RoutingRules", "RoutingRule")) {
-                if (name.equals("Condition")) {
+                if ("Condition".equals(name)) {
                     currentRoutingRule.setCondition(currentCondition);
                     currentCondition = null;
-                } else if (name.equals("Redirect")) {
+                } else if ("Redirect".equals(name)) {
                     currentRoutingRule.setRedirect(currentRedirectRule);
                     currentRedirectRule = null;
                 }
             } else if (in("WebsiteConfiguration", "RoutingRules", "RoutingRule", "Condition")) {
-                if (name.equals("KeyPrefixEquals")) {
+                if ("KeyPrefixEquals".equals(name)) {
                     currentCondition.setKeyPrefixEquals(getText());
-                } else if (name.equals("HttpErrorCodeReturnedEquals")) {
+                } else if ("HttpErrorCodeReturnedEquals".equals(name)) {
                     currentCondition.setHttpErrorCodeReturnedEquals(getText());
                 }
             } else if (in("WebsiteConfiguration", "RedirectAllRequestsTo")
                     || in("WebsiteConfiguration", "RoutingRules", "RoutingRule", "Redirect")) {
 
-                if (name.equals("Protocol")) {
+                if ("Protocol".equals(name)) {
                     currentRedirectRule.setProtocol(getText());
 
-                } else if (name.equals("HostName")) {
+                } else if ("HostName".equals(name)) {
                     currentRedirectRule.setHostName(getText());
 
-                } else if (name.equals("ReplaceKeyPrefixWith")) {
+                } else if ("ReplaceKeyPrefixWith".equals(name)) {
                     currentRedirectRule.setReplaceKeyPrefixWith(getText());
 
-                } else if (name.equals("ReplaceKeyWith")) {
+                } else if ("ReplaceKeyWith".equals(name)) {
                     currentRedirectRule.setReplaceKeyWith(getText());
 
-                } else if (name.equals("HttpRedirectCode")) {
+                } else if ("HttpRedirectCode".equals(name)) {
                     currentRedirectRule.setHttpRedirectCode(getText());
                 }
             }
@@ -1503,15 +1503,15 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("VersioningConfiguration")) {
-                if (name.equals("Status")) {
+                if ("Status".equals(name)) {
                     configuration.setStatus(getText());
 
-                } else if (name.equals("MfaDelete")) {
+                } else if ("MfaDelete".equals(name)) {
                     String mfaDeleteStatus = getText();
 
-                    if (mfaDeleteStatus.equals("Disabled")) {
+                    if ("Disabled".equals(mfaDeleteStatus)) {
                         configuration.setMfaDeleteEnabled(false);
-                    } else if (mfaDeleteStatus.equals("Enabled")) {
+                    } else if ("Enabled".equals(mfaDeleteStatus)) {
                         configuration.setMfaDeleteEnabled(true);
                     } else {
                         configuration.setMfaDeleteEnabled(null);
@@ -1536,7 +1536,7 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("AccelerateConfiguration")) {
-                if (name.equals("Status")) {
+                if ("Status".equals(name)) {
                     configuration.setStatus(getText());
                 }
             }
@@ -1641,7 +1641,7 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (atTopLevel()) {
-                if (name.equals("CompleteMultipartUploadResult")) {
+                if ("CompleteMultipartUploadResult".equals(name)) {
                     result = new CompleteMultipartUploadResult();
                 }
             }
@@ -1650,7 +1650,7 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (atTopLevel()) {
-                if (name.equals("Error")) {
+                if ("Error".equals(name)) {
                     if (ase != null) {
                         ase.setErrorCode(errorCode);
                         ase.setRequestId(requestId);
@@ -1658,23 +1658,23 @@ public class XmlResponsesSaxParser {
                     }
                 }
             } else if (in("CompleteMultipartUploadResult")) {
-                if (name.equals("Location")) {
+                if ("Location".equals(name)) {
                     result.setLocation(getText());
-                } else if (name.equals("Bucket")) {
+                } else if ("Bucket".equals(name)) {
                     result.setBucketName(getText());
-                } else if (name.equals("Key")) {
+                } else if ("Key".equals(name)) {
                     result.setKey(getText());
-                } else if (name.equals("ETag")) {
+                } else if ("ETag".equals(name)) {
                     result.setETag(ServiceUtils.removeQuotes(getText()));
                 }
             } else if (in("Error")) {
-                if (name.equals("Code")) {
+                if ("Code".equals(name)) {
                     errorCode = getText();
-                } else if (name.equals("Message")) {
+                } else if ("Message".equals(name)) {
                     ase = new AmazonS3Exception(getText());
-                } else if (name.equals("RequestId")) {
+                } else if ("RequestId".equals(name)) {
                     requestId = getText();
-                } else if (name.equals("HostId")) {
+                } else if ("HostId".equals(name)) {
                     hostId = getText();
                 }
             }
@@ -1703,13 +1703,13 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("InitiateMultipartUploadResult")) {
-                if (name.equals("Bucket")) {
+                if ("Bucket".equals(name)) {
                     result.setBucketName(getText());
 
-                } else if (name.equals("Key")) {
+                } else if ("Key".equals(name)) {
                     result.setKey(getText());
 
-                } else if (name.equals("UploadId")) {
+                } else if ("UploadId".equals(name)) {
                     result.setUploadId(getText());
                 }
             }
@@ -1789,11 +1789,11 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("ListMultipartUploadsResult")) {
-                if (name.equals("Upload")) {
+                if ("Upload".equals(name)) {
                     currentMultipartUpload = new MultipartUpload();
                 }
             } else if (in("ListMultipartUploadsResult", "Upload")) {
-                if (name.equals("Owner") || name.equals("Initiator")) {
+                if ("Owner".equals(name) || "Initiator".equals(name)) {
                     currentOwner = new Owner();
                 }
             }
@@ -1802,56 +1802,56 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("ListMultipartUploadsResult")) {
-                if (name.equals("Bucket")) {
+                if ("Bucket".equals(name)) {
                     result.setBucketName(getText());
-                } else if (name.equals("KeyMarker")) {
+                } else if ("KeyMarker".equals(name)) {
                     result.setKeyMarker(checkForEmptyString(getText()));
-                } else if (name.equals("Delimiter")) {
+                } else if ("Delimiter".equals(name)) {
                     result.setDelimiter(checkForEmptyString(getText()));
-                } else if (name.equals("Prefix")) {
+                } else if ("Prefix".equals(name)) {
                     result.setPrefix(checkForEmptyString(getText()));
-                } else if (name.equals("UploadIdMarker")) {
+                } else if ("UploadIdMarker".equals(name)) {
                     result.setUploadIdMarker(checkForEmptyString(getText()));
-                } else if (name.equals("NextKeyMarker")) {
+                } else if ("NextKeyMarker".equals(name)) {
                     result.setNextKeyMarker(checkForEmptyString(getText()));
-                } else if (name.equals("NextUploadIdMarker")) {
+                } else if ("NextUploadIdMarker".equals(name)) {
                     result.setNextUploadIdMarker(checkForEmptyString(getText()));
-                } else if (name.equals("MaxUploads")) {
+                } else if ("MaxUploads".equals(name)) {
                     result.setMaxUploads(Integer.parseInt(getText()));
-                } else if (name.equals("EncodingType")) {
+                } else if ("EncodingType".equals(name)) {
                     result.setEncodingType(checkForEmptyString(getText()));
-                } else if (name.equals("IsTruncated")) {
+                } else if ("IsTruncated".equals(name)) {
                     result.setTruncated(Boolean.parseBoolean(getText()));
-                } else if (name.equals("Upload")) {
+                } else if ("Upload".equals(name)) {
                     result.getMultipartUploads().add(currentMultipartUpload);
                     currentMultipartUpload = null;
                 }
             } else if (in("ListMultipartUploadsResult", "CommonPrefixes")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     result.getCommonPrefixes().add(getText());
                 }
             } else if (in("ListMultipartUploadsResult", "Upload")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentMultipartUpload.setKey(getText());
-                } else if (name.equals("UploadId")) {
+                } else if ("UploadId".equals(name)) {
                     currentMultipartUpload.setUploadId(getText());
-                } else if (name.equals("Owner")) {
+                } else if ("Owner".equals(name)) {
                     currentMultipartUpload.setOwner(currentOwner);
                     currentOwner = null;
-                } else if (name.equals("Initiator")) {
+                } else if ("Initiator".equals(name)) {
                     currentMultipartUpload.setInitiator(currentOwner);
                     currentOwner = null;
-                } else if (name.equals("StorageClass")) {
+                } else if ("StorageClass".equals(name)) {
                     currentMultipartUpload.setStorageClass(getText());
-                } else if (name.equals("Initiated")) {
+                } else if ("Initiated".equals(name)) {
                     currentMultipartUpload.setInitiated(ServiceUtils.parseIso8601Date(getText()));
                 }
             } else if (in("ListMultipartUploadsResult", "Upload", "Owner")
                     || in("ListMultipartUploadsResult", "Upload", "Initiator")) {
 
-                if (name.equals("ID")) {
+                if ("ID".equals(name)) {
                     currentOwner.setId(checkForEmptyString(getText()));
-                } else if (name.equals("DisplayName")) {
+                } else if ("DisplayName".equals(name)) {
                     currentOwner.setDisplayName(checkForEmptyString(getText()));
                 }
             }
@@ -1914,9 +1914,9 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("ListPartsResult")) {
-                if (name.equals("Part")) {
+                if ("Part".equals(name)) {
                     currentPart = new PartSummary();
-                } else if (name.equals("Owner") || name.equals("Initiator")) {
+                } else if ("Owner".equals(name) || "Initiator".equals(name)) {
                     currentOwner = new Owner();
                 }
             }
@@ -1925,49 +1925,49 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("ListPartsResult")) {
-                if (name.equals("Bucket")) {
+                if ("Bucket".equals(name)) {
                     result.setBucketName(getText());
-                } else if (name.equals("Key")) {
+                } else if ("Key".equals(name)) {
                     result.setKey(getText());
-                } else if (name.equals("UploadId")) {
+                } else if ("UploadId".equals(name)) {
                     result.setUploadId(getText());
-                } else if (name.equals("Owner")) {
+                } else if ("Owner".equals(name)) {
                     result.setOwner(currentOwner);
                     currentOwner = null;
-                } else if (name.equals("Initiator")) {
+                } else if ("Initiator".equals(name)) {
                     result.setInitiator(currentOwner);
                     currentOwner = null;
-                } else if (name.equals("StorageClass")) {
+                } else if ("StorageClass".equals(name)) {
                     result.setStorageClass(getText());
-                } else if (name.equals("PartNumberMarker")) {
+                } else if ("PartNumberMarker".equals(name)) {
                     result.setPartNumberMarker(parseInteger(getText()));
-                } else if (name.equals("NextPartNumberMarker")) {
+                } else if ("NextPartNumberMarker".equals(name)) {
                     result.setNextPartNumberMarker(parseInteger(getText()));
-                } else if (name.equals("MaxParts")) {
+                } else if ("MaxParts".equals(name)) {
                     result.setMaxParts(parseInteger(getText()));
-                } else if (name.equals("EncodingType")) {
+                } else if ("EncodingType".equals(name)) {
                     result.setEncodingType(checkForEmptyString(getText()));
-                } else if (name.equals("IsTruncated")) {
+                } else if ("IsTruncated".equals(name)) {
                     result.setTruncated(Boolean.parseBoolean(getText()));
-                } else if (name.equals("Part")) {
+                } else if ("Part".equals(name)) {
                     result.getParts().add(currentPart);
                     currentPart = null;
                 }
             } else if (in("ListPartsResult", "Part")) {
-                if (name.equals("PartNumber")) {
+                if ("PartNumber".equals(name)) {
                     currentPart.setPartNumber(Integer.parseInt(getText()));
-                } else if (name.equals("LastModified")) {
+                } else if ("LastModified".equals(name)) {
                     currentPart.setLastModified(ServiceUtils.parseIso8601Date(getText()));
-                } else if (name.equals("ETag")) {
+                } else if ("ETag".equals(name)) {
                     currentPart.setETag(ServiceUtils.removeQuotes(getText()));
-                } else if (name.equals("Size")) {
+                } else if ("Size".equals(name)) {
                     currentPart.setSize(Long.parseLong(getText()));
                 }
             } else if (in("ListPartsResult", "Owner") || in("ListPartsResult", "Initiator")) {
 
-                if (name.equals("ID")) {
+                if ("ID".equals(name)) {
                     currentOwner.setId(checkForEmptyString(getText()));
-                } else if (name.equals("DisplayName")) {
+                } else if ("DisplayName".equals(name)) {
                     currentOwner.setDisplayName(checkForEmptyString(getText()));
                 }
             }
@@ -2041,23 +2041,23 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in(REPLICATION_CONFIG)) {
-                if (name.equals(RULE)) {
+                if (RULE.equals(name)) {
                     currentRule = new ReplicationRule();
                 }
             } else if (in(REPLICATION_CONFIG, RULE)) {
-                if (name.equals(DESTINATION)) {
+                if (DESTINATION.equals(name)) {
                     destinationConfig = new ReplicationDestinationConfig();
-                } else if (name.equals(SOURCE_SELECTION_CRITERIA)) {
+                } else if (SOURCE_SELECTION_CRITERIA.equals(name)) {
                     sourceSelectionCriteria = new SourceSelectionCriteria();
                 }
             } else if (in(REPLICATION_CONFIG, RULE, DESTINATION)) {
-                if (name.equals(ACCESS_CONTROL_TRANSLATION)) {
+                if (ACCESS_CONTROL_TRANSLATION.equals(name)) {
                     accessControlTranslation = new AccessControlTranslation();
-                } else if (name.equals(ENCRYPTION_CONFIGURATION)) {
+                } else if (ENCRYPTION_CONFIGURATION.equals(name)) {
                     encryptionConfiguration = new EncryptionConfiguration();
                 }
             } else if (in(REPLICATION_CONFIG, RULE, SOURCE_SELECTION_CRITERIA)) {
-                if (name.equals(SSE_KMS_ENCRYPTED_OBJECTS)) {
+                if (SSE_KMS_ENCRYPTED_OBJECTS.equals(name)) {
                     sseKmsEncryptedObjects = new SseKmsEncryptedObjects();
                 }
             }
@@ -2066,7 +2066,7 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in(REPLICATION_CONFIG)) {
-                if (name.equals(RULE)) {
+                if (RULE.equals(name)) {
                     bucketReplicationConfiguration.addRule(currentRuleId, currentRule);
                     currentRule = null;
                     currentRuleId = null;
@@ -2074,26 +2074,26 @@ public class XmlResponsesSaxParser {
                     sseKmsEncryptedObjects = null;
                     accessControlTranslation = null;
                     encryptionConfiguration = null;
-                } else if (name.equals(ROLE)) {
+                } else if (ROLE.equals(name)) {
                     bucketReplicationConfiguration.setRoleARN(getText());
                 }
             } else if (in(REPLICATION_CONFIG, RULE)) {
-                if (name.equals(ID)) {
+                if (ID.equals(name)) {
                     currentRuleId = getText();
-                } else if (name.equals(PREFIX)) {
+                } else if (PREFIX.equals(name)) {
                     currentRule.setPrefix(getText());
-                } else if (name.equals(SOURCE_SELECTION_CRITERIA)) {
+                } else if (SOURCE_SELECTION_CRITERIA.equals(name)) {
                     currentRule.setSourceSelectionCriteria(sourceSelectionCriteria);
                 } else {
-                    if (name.equals(STATUS)) {
+                    if (STATUS.equals(name)) {
                         currentRule.setStatus(getText());
 
-                    } else if (name.equals(DESTINATION)) {
+                    } else if (DESTINATION.equals(name)) {
                         currentRule.setDestinationConfig(destinationConfig);
                     }
                 }
             } else if (in(REPLICATION_CONFIG, RULE, SOURCE_SELECTION_CRITERIA)) {
-                if (name.equals(SSE_KMS_ENCRYPTED_OBJECTS)) {
+                if (SSE_KMS_ENCRYPTED_OBJECTS.equals(name)) {
                     sourceSelectionCriteria.setSseKmsEncryptedObjects(sseKmsEncryptedObjects);
                 }
             } else if (in(
@@ -2101,27 +2101,27 @@ public class XmlResponsesSaxParser {
                     RULE,
                     SOURCE_SELECTION_CRITERIA,
                     SSE_KMS_ENCRYPTED_OBJECTS)) {
-                if (name.equals(STATUS)) {
+                if (STATUS.equals(name)) {
                     sseKmsEncryptedObjects.setStatus(getText());
                 }
             } else if (in(REPLICATION_CONFIG, RULE, DESTINATION)) {
-                if (name.equals(BUCKET)) {
+                if (BUCKET.equals(name)) {
                     destinationConfig.setBucketARN(getText());
-                } else if (name.equals(STORAGECLASS)) {
+                } else if (STORAGECLASS.equals(name)) {
                     destinationConfig.setStorageClass(getText());
-                } else if (name.equals(ACCOUNT)) {
+                } else if (ACCOUNT.equals(name)) {
                     destinationConfig.setAccount(getText());
-                } else if (name.equals(ACCESS_CONTROL_TRANSLATION)) {
+                } else if (ACCESS_CONTROL_TRANSLATION.equals(name)) {
                     destinationConfig.setAccessControlTranslation(accessControlTranslation);
-                } else if (name.equals(ENCRYPTION_CONFIGURATION)) {
+                } else if (ENCRYPTION_CONFIGURATION.equals(name)) {
                     destinationConfig.setEncryptionConfiguration(encryptionConfiguration);
                 }
             } else if (in(REPLICATION_CONFIG, RULE, DESTINATION, ACCESS_CONTROL_TRANSLATION)) {
-                if (name.equals(OWNER)) {
+                if (OWNER.equals(name)) {
                     accessControlTranslation.setOwner(getText());
                 }
             } else if (in(REPLICATION_CONFIG, RULE, DESTINATION, ENCRYPTION_CONFIGURATION)) {
-                if (name.equals(REPLICA_KMS_KEY_ID)) {
+                if (REPLICA_KMS_KEY_ID.equals(name)) {
                     encryptionConfiguration.setReplicaKmsKeyID(getText());
                 }
             }
@@ -2144,7 +2144,7 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("Tagging")) {
-                if (name.equals("TagSet")) {
+                if ("TagSet".equals(name)) {
                     currentTagSet = new HashMap<String, String>();
                 }
             }
@@ -2153,12 +2153,12 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("Tagging")) {
-                if (name.equals("TagSet")) {
+                if ("TagSet".equals(name)) {
                     configuration.getAllTagSets().add(new TagSet(currentTagSet));
                     currentTagSet = null;
                 }
             } else if (in("Tagging", "TagSet")) {
-                if (name.equals("Tag")) {
+                if ("Tag".equals(name)) {
                     if (currentTagKey != null && currentTagValue != null) {
                         currentTagSet.put(currentTagKey, currentTagValue);
                     }
@@ -2166,9 +2166,9 @@ public class XmlResponsesSaxParser {
                     currentTagValue = null;
                 }
             } else if (in("Tagging", "TagSet", "Tag")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentTagKey = getText();
-                } else if (name.equals("Value")) {
+                } else if ("Value".equals(name)) {
                     currentTagValue = getText();
                 }
             }
@@ -2194,7 +2194,7 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
             if (in("Tagging")) {
-                if (name.equals("TagSet")) {
+                if ("TagSet".equals(name)) {
                     tagSet = new ArrayList<Tag>();
                 }
             }
@@ -2203,21 +2203,21 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("Tagging")) {
-                if (name.equals("TagSet")) {
+                if ("TagSet".equals(name)) {
                     getObjectTaggingResult = new GetObjectTaggingResult(tagSet);
                     tagSet = null;
                 }
             }
             if (in("Tagging", "TagSet")) {
-                if (name.equals("Tag")) {
+                if ("Tag".equals(name)) {
                     tagSet.add(new Tag(currentTagKey, currentTagValue));
                     currentTagKey = null;
                     currentTagValue = null;
                 }
             } else if (in("Tagging", "TagSet", "Tag")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentTagKey = getText();
-                } else if (name.equals("Value")) {
+                } else if ("Value".equals(name)) {
                     currentTagValue = getText();
                 }
             }
@@ -2268,9 +2268,9 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("DeleteResult")) {
-                if (name.equals("Deleted")) {
+                if ("Deleted".equals(name)) {
                     currentDeletedObject = new DeletedObject();
-                } else if (name.equals("Error")) {
+                } else if ("Error".equals(name)) {
                     currentError = new DeleteError();
                 }
             }
@@ -2279,37 +2279,37 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("DeleteResult")) {
-                if (name.equals("Deleted")) {
+                if ("Deleted".equals(name)) {
                     response.getDeletedObjects().add(currentDeletedObject);
                     currentDeletedObject = null;
-                } else if (name.equals("Error")) {
+                } else if ("Error".equals(name)) {
                     response.getErrors().add(currentError);
                     currentError = null;
                 }
             } else if (in("DeleteResult", "Deleted")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentDeletedObject.setKey(getText());
 
-                } else if (name.equals("VersionId")) {
+                } else if ("VersionId".equals(name)) {
                     currentDeletedObject.setVersionId(getText());
 
-                } else if (name.equals("DeleteMarker")) {
+                } else if ("DeleteMarker".equals(name)) {
                     currentDeletedObject.setDeleteMarker(getText().equals("true"));
 
-                } else if (name.equals("DeleteMarkerVersionId")) {
+                } else if ("DeleteMarkerVersionId".equals(name)) {
                     currentDeletedObject.setDeleteMarkerVersionId(getText());
                 }
             } else if (in("DeleteResult", "Error")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentError.setKey(getText());
 
-                } else if (name.equals("VersionId")) {
+                } else if ("VersionId".equals(name)) {
                     currentError.setVersionId(getText());
 
-                } else if (name.equals("Code")) {
+                } else if ("Code".equals(name)) {
                     currentError.setCode(getText());
 
-                } else if (name.equals("Message")) {
+                } else if ("Message".equals(name)) {
                     currentError.setMessage(getText());
                 }
             }
@@ -2361,21 +2361,21 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("LifecycleConfiguration")) {
-                if (name.equals("Rule")) {
+                if ("Rule".equals(name)) {
                     currentRule = new Rule();
                 }
             } else if (in("LifecycleConfiguration", "Rule")) {
-                if (name.equals("Transition")) {
+                if ("Transition".equals(name)) {
                     currentTransition = new Transition();
-                } else if (name.equals("NoncurrentVersionTransition")) {
+                } else if ("NoncurrentVersionTransition".equals(name)) {
                     currentNcvTransition = new NoncurrentVersionTransition();
-                } else if (name.equals("AbortIncompleteMultipartUpload")) {
+                } else if ("AbortIncompleteMultipartUpload".equals(name)) {
                     abortIncompleteMultipartUpload = new AbortIncompleteMultipartUpload();
-                } else if (name.equals("Filter")) {
+                } else if ("Filter".equals(name)) {
                     currentFilter = new LifecycleFilter();
                 }
             } else if (in("LifecycleConfiguration", "Rule", "Filter")) {
-                if (name.equals("And")) {
+                if ("And".equals(name)) {
                     andOperandsList = new ArrayList<LifecycleFilterPredicate>();
                 }
             }
@@ -2384,99 +2384,99 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("LifecycleConfiguration")) {
-                if (name.equals("Rule")) {
+                if ("Rule".equals(name)) {
                     configuration.getRules().add(currentRule);
                     currentRule = null;
                 }
             } else if (in("LifecycleConfiguration", "Rule")) {
-                if (name.equals("ID")) {
+                if ("ID".equals(name)) {
                     currentRule.setId(getText());
 
-                } else if (name.equals("Prefix")) {
+                } else if ("Prefix".equals(name)) {
                     currentRule.setPrefix(getText());
 
-                } else if (name.equals("Status")) {
+                } else if ("Status".equals(name)) {
                     currentRule.setStatus(getText());
 
-                } else if (name.equals("Transition")) {
+                } else if ("Transition".equals(name)) {
                     currentRule.addTransition(currentTransition);
                     currentTransition = null;
 
-                } else if (name.equals("NoncurrentVersionTransition")) {
+                } else if ("NoncurrentVersionTransition".equals(name)) {
                     currentRule.addNoncurrentVersionTransition(currentNcvTransition);
                     currentNcvTransition = null;
-                } else if (name.equals("AbortIncompleteMultipartUpload")) {
+                } else if ("AbortIncompleteMultipartUpload".equals(name)) {
                     currentRule.setAbortIncompleteMultipartUpload(abortIncompleteMultipartUpload);
                     abortIncompleteMultipartUpload = null;
-                } else if (name.equals("Filter")) {
+                } else if ("Filter".equals(name)) {
                     currentRule.setFilter(currentFilter);
                     currentFilter = null;
                 }
             } else if (in("LifecycleConfiguration", "Rule", "Expiration")) {
-                if (name.equals("Date")) {
+                if ("Date".equals(name)) {
                     currentRule.setExpirationDate(ServiceUtils.parseIso8601Date(getText()));
-                } else if (name.equals("Days")) {
+                } else if ("Days".equals(name)) {
                     currentRule.setExpirationInDays(Integer.parseInt(getText()));
-                } else if (name.equals("ExpiredObjectDeleteMarker")) {
+                } else if ("ExpiredObjectDeleteMarker".equals(name)) {
                     if ("true".equals(getText())) {
                         currentRule.setExpiredObjectDeleteMarker(true);
                     }
                 }
             } else if (in("LifecycleConfiguration", "Rule", "Transition")) {
-                if (name.equals("StorageClass")) {
+                if ("StorageClass".equals(name)) {
                     currentTransition.setStorageClass(getText());
-                } else if (name.equals("Date")) {
+                } else if ("Date".equals(name)) {
                     currentTransition.setDate(ServiceUtils.parseIso8601Date(getText()));
 
-                } else if (name.equals("Days")) {
+                } else if ("Days".equals(name)) {
                     currentTransition.setDays(Integer.parseInt(getText()));
                 }
             } else if (in("LifecycleConfiguration", "Rule", "NoncurrentVersionExpiration")) {
-                if (name.equals("NoncurrentDays")) {
+                if ("NoncurrentDays".equals(name)) {
                     currentRule.setNoncurrentVersionExpirationInDays(Integer.parseInt(getText()));
                 }
             } else if (in("LifecycleConfiguration", "Rule", "NoncurrentVersionTransition")) {
-                if (name.equals("StorageClass")) {
+                if ("StorageClass".equals(name)) {
                     currentNcvTransition.setStorageClass(getText());
-                } else if (name.equals("NoncurrentDays")) {
+                } else if ("NoncurrentDays".equals(name)) {
                     currentNcvTransition.setDays(Integer.parseInt(getText()));
                 }
             } else if (in("LifecycleConfiguration", "Rule", "AbortIncompleteMultipartUpload")) {
-                if (name.equals("DaysAfterInitiation")) {
+                if ("DaysAfterInitiation".equals(name)) {
                     abortIncompleteMultipartUpload.setDaysAfterInitiation(
                             Integer.parseInt(getText()));
                 }
             } else if (in("LifecycleConfiguration", "Rule", "Filter")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     currentFilter.setPredicate(new LifecyclePrefixPredicate(getText()));
-                } else if (name.equals("Tag")) {
+                } else if ("Tag".equals(name)) {
                     currentFilter.setPredicate(
                             new LifecycleTagPredicate(new Tag(currentTagKey, currentTagValue)));
                     currentTagKey = null;
                     currentTagValue = null;
-                } else if (name.equals("And")) {
+                } else if ("And".equals(name)) {
                     currentFilter.setPredicate(new LifecycleAndOperator(andOperandsList));
                     andOperandsList = null;
                 }
             } else if (in("LifecycleConfiguration", "Rule", "Filter", "Tag")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentTagKey = getText();
-                } else if (name.equals("Value")) {
+                } else if ("Value".equals(name)) {
                     currentTagValue = getText();
                 }
             } else if (in("LifecycleConfiguration", "Rule", "Filter", "And")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     andOperandsList.add(new LifecyclePrefixPredicate(getText()));
-                } else if (name.equals("Tag")) {
+                } else if ("Tag".equals(name)) {
                     andOperandsList.add(
                             new LifecycleTagPredicate(new Tag(currentTagKey, currentTagValue)));
                     currentTagKey = null;
                     currentTagValue = null;
                 }
             } else if (in("LifecycleConfiguration", "Rule", "Filter", "And", "Tag")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentTagKey = getText();
-                } else if (name.equals("Value")) {
+                } else if ("Value".equals(name)) {
                     currentTagValue = getText();
                 }
             }
@@ -2519,23 +2519,23 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("CORSConfiguration")) {
-                if (name.equals("CORSRule")) {
+                if ("CORSRule".equals(name)) {
                     currentRule = new CORSRule();
                 }
             } else if (in("CORSConfiguration", "CORSRule")) {
-                if (name.equals("AllowedOrigin")) {
+                if ("AllowedOrigin".equals(name)) {
                     if (allowedOrigins == null) {
                         allowedOrigins = new ArrayList<String>();
                     }
-                } else if (name.equals("AllowedMethod")) {
+                } else if ("AllowedMethod".equals(name)) {
                     if (allowedMethods == null) {
                         allowedMethods = new ArrayList<AllowedMethods>();
                     }
-                } else if (name.equals("ExposeHeader")) {
+                } else if ("ExposeHeader".equals(name)) {
                     if (exposedHeaders == null) {
                         exposedHeaders = new ArrayList<String>();
                     }
-                } else if (name.equals("AllowedHeader")) {
+                } else if ("AllowedHeader".equals(name)) {
                     if (allowedHeaders == null) {
                         allowedHeaders = new LinkedList<String>();
                     }
@@ -2546,7 +2546,7 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("CORSConfiguration")) {
-                if (name.equals("CORSRule")) {
+                if ("CORSRule".equals(name)) {
                     currentRule.setAllowedHeaders(allowedHeaders);
                     currentRule.setAllowedMethods(allowedMethods);
                     currentRule.setAllowedOrigins(allowedOrigins);
@@ -2560,22 +2560,22 @@ public class XmlResponsesSaxParser {
                     currentRule = null;
                 }
             } else if (in("CORSConfiguration", "CORSRule")) {
-                if (name.equals("ID")) {
+                if ("ID".equals(name)) {
                     currentRule.setId(getText());
 
-                } else if (name.equals("AllowedOrigin")) {
+                } else if ("AllowedOrigin".equals(name)) {
                     allowedOrigins.add(getText());
 
-                } else if (name.equals("AllowedMethod")) {
+                } else if ("AllowedMethod".equals(name)) {
                     allowedMethods.add(AllowedMethods.fromValue(getText()));
 
-                } else if (name.equals("MaxAgeSeconds")) {
+                } else if ("MaxAgeSeconds".equals(name)) {
                     currentRule.setMaxAgeSeconds(Integer.parseInt(getText()));
 
-                } else if (name.equals("ExposeHeader")) {
+                } else if ("ExposeHeader".equals(name)) {
                     exposedHeaders.add(getText());
 
-                } else if (name.equals("AllowedHeader")) {
+                } else if ("AllowedHeader".equals(name)) {
                     allowedHeaders.add(getText());
                 }
             }
@@ -2628,12 +2628,12 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("MetricsConfiguration")) {
-                if (name.equals("Filter")) {
+                if ("Filter".equals(name)) {
                     filter = new MetricsFilter();
                 }
 
             } else if (in("MetricsConfiguration", "Filter")) {
-                if (name.equals("And")) {
+                if ("And".equals(name)) {
                     andOperandsList = new ArrayList<MetricsFilterPredicate>();
                 }
             }
@@ -2642,43 +2642,43 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("MetricsConfiguration")) {
-                if (name.equals("Id")) {
+                if ("Id".equals(name)) {
                     configuration.setId(getText());
-                } else if (name.equals("Filter")) {
+                } else if ("Filter".equals(name)) {
                     configuration.setFilter(filter);
                     filter = null;
                 }
             } else if (in("MetricsConfiguration", "Filter")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     filter.setPredicate(new MetricsPrefixPredicate(getText()));
-                } else if (name.equals("Tag")) {
+                } else if ("Tag".equals(name)) {
                     filter.setPredicate(
                             new MetricsTagPredicate(new Tag(currentTagKey, currentTagValue)));
                     currentTagKey = null;
                     currentTagValue = null;
-                } else if (name.equals("And")) {
+                } else if ("And".equals(name)) {
                     filter.setPredicate(new MetricsAndOperator(andOperandsList));
                     andOperandsList = null;
                 }
             } else if (in("MetricsConfiguration", "Filter", "Tag")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentTagKey = getText();
-                } else if (name.equals("Value")) {
+                } else if ("Value".equals(name)) {
                     currentTagValue = getText();
                 }
             } else if (in("MetricsConfiguration", "Filter", "And")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     andOperandsList.add(new MetricsPrefixPredicate(getText()));
-                } else if (name.equals("Tag")) {
+                } else if ("Tag".equals(name)) {
                     andOperandsList.add(
                             new MetricsTagPredicate(new Tag(currentTagKey, currentTagValue)));
                     currentTagKey = null;
                     currentTagValue = null;
                 }
             } else if (in("MetricsConfiguration", "Filter", "And", "Tag")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentTagKey = getText();
-                } else if (name.equals("Value")) {
+                } else if ("Value".equals(name)) {
                     currentTagValue = getText();
                 }
             }
@@ -2721,17 +2721,17 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("ListMetricsConfigurationsResult")) {
-                if (name.equals("MetricsConfiguration")) {
+                if ("MetricsConfiguration".equals(name)) {
                     currentConfiguration = new MetricsConfiguration();
                 }
 
             } else if (in("ListMetricsConfigurationsResult", "MetricsConfiguration")) {
-                if (name.equals("Filter")) {
+                if ("Filter".equals(name)) {
                     currentFilter = new MetricsFilter();
                 }
 
             } else if (in("ListMetricsConfigurationsResult", "MetricsConfiguration", "Filter")) {
-                if (name.equals("And")) {
+                if ("And".equals(name)) {
                     andOperandsList = new ArrayList<MetricsFilterPredicate>();
                 }
             }
@@ -2741,50 +2741,50 @@ public class XmlResponsesSaxParser {
         protected void doEndElement(String uri, String name, String qName) {
 
             if (in("ListMetricsConfigurationsResult")) {
-                if (name.equals("MetricsConfiguration")) {
+                if ("MetricsConfiguration".equals(name)) {
                     if (result.getMetricsConfigurationList() == null) {
                         result.setMetricsConfigurationList(new ArrayList<MetricsConfiguration>());
                     }
                     result.getMetricsConfigurationList().add(currentConfiguration);
                     currentConfiguration = null;
-                } else if (name.equals("IsTruncated")) {
+                } else if ("IsTruncated".equals(name)) {
                     result.setTruncated("true".equals(getText()));
-                } else if (name.equals("ContinuationToken")) {
+                } else if ("ContinuationToken".equals(name)) {
                     result.setContinuationToken(getText());
-                } else if (name.equals("NextContinuationToken")) {
+                } else if ("NextContinuationToken".equals(name)) {
                     result.setNextContinuationToken(getText());
                 }
             } else if (in("ListMetricsConfigurationsResult", "MetricsConfiguration")) {
-                if (name.equals("Id")) {
+                if ("Id".equals(name)) {
                     currentConfiguration.setId(getText());
-                } else if (name.equals("Filter")) {
+                } else if ("Filter".equals(name)) {
                     currentConfiguration.setFilter(currentFilter);
                     currentFilter = null;
                 }
             } else if (in("ListMetricsConfigurationsResult", "MetricsConfiguration", "Filter")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     currentFilter.setPredicate(new MetricsPrefixPredicate(getText()));
-                } else if (name.equals("Tag")) {
+                } else if ("Tag".equals(name)) {
                     currentFilter.setPredicate(
                             new MetricsTagPredicate(new Tag(currentTagKey, currentTagValue)));
                     currentTagKey = null;
                     currentTagValue = null;
-                } else if (name.equals("And")) {
+                } else if ("And".equals(name)) {
                     currentFilter.setPredicate(new MetricsAndOperator(andOperandsList));
                     andOperandsList = null;
                 }
             } else if (in(
                     "ListMetricsConfigurationsResult", "MetricsConfiguration", "Filter", "Tag")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentTagKey = getText();
-                } else if (name.equals("Value")) {
+                } else if ("Value".equals(name)) {
                     currentTagValue = getText();
                 }
             } else if (in(
                     "ListMetricsConfigurationsResult", "MetricsConfiguration", "Filter", "And")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     andOperandsList.add(new MetricsPrefixPredicate(getText()));
-                } else if (name.equals("Tag")) {
+                } else if ("Tag".equals(name)) {
                     andOperandsList.add(
                             new MetricsTagPredicate(new Tag(currentTagKey, currentTagValue)));
                     currentTagKey = null;
@@ -2796,9 +2796,9 @@ public class XmlResponsesSaxParser {
                     "Filter",
                     "And",
                     "Tag")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentTagKey = getText();
-                } else if (name.equals("Value")) {
+                } else if ("Value".equals(name)) {
                     currentTagValue = getText();
                 }
             }
@@ -2863,24 +2863,24 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("AnalyticsConfiguration")) {
-                if (name.equals("Filter")) {
+                if ("Filter".equals(name)) {
                     filter = new AnalyticsFilter();
-                } else if (name.equals("StorageClassAnalysis")) {
+                } else if ("StorageClassAnalysis".equals(name)) {
                     storageClassAnalysis = new StorageClassAnalysis();
                 }
 
             } else if (in("AnalyticsConfiguration", "Filter")) {
-                if (name.equals("And")) {
+                if ("And".equals(name)) {
                     andOperandsList = new ArrayList<AnalyticsFilterPredicate>();
                 }
 
             } else if (in("AnalyticsConfiguration", "StorageClassAnalysis")) {
-                if (name.equals("DataExport")) {
+                if ("DataExport".equals(name)) {
                     dataExport = new StorageClassAnalysisDataExport();
                 }
 
             } else if (in("AnalyticsConfiguration", "StorageClassAnalysis", "DataExport")) {
-                if (name.equals("Destination")) {
+                if ("Destination".equals(name)) {
                     destination = new AnalyticsExportDestination();
                 }
 
@@ -2889,7 +2889,7 @@ public class XmlResponsesSaxParser {
                     "StorageClassAnalysis",
                     "DataExport",
                     "Destination")) {
-                if (name.equals("S3BucketDestination")) {
+                if ("S3BucketDestination".equals(name)) {
                     s3BucketDestination = new AnalyticsS3BucketDestination();
                 }
             }
@@ -2898,54 +2898,54 @@ public class XmlResponsesSaxParser {
         @Override
         protected void doEndElement(String uri, String name, String qName) {
             if (in("AnalyticsConfiguration")) {
-                if (name.equals("Id")) {
+                if ("Id".equals(name)) {
                     configuration.setId(getText());
-                } else if (name.equals("Filter")) {
+                } else if ("Filter".equals(name)) {
                     configuration.setFilter(filter);
-                } else if (name.equals("StorageClassAnalysis")) {
+                } else if ("StorageClassAnalysis".equals(name)) {
                     configuration.setStorageClassAnalysis(storageClassAnalysis);
                 }
             } else if (in("AnalyticsConfiguration", "Filter")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     filter.setPredicate(new AnalyticsPrefixPredicate(getText()));
-                } else if (name.equals("Tag")) {
+                } else if ("Tag".equals(name)) {
                     filter.setPredicate(
                             new AnalyticsTagPredicate(new Tag(currentTagKey, currentTagValue)));
                     currentTagKey = null;
                     currentTagValue = null;
-                } else if (name.equals("And")) {
+                } else if ("And".equals(name)) {
                     filter.setPredicate(new AnalyticsAndOperator(andOperandsList));
                     andOperandsList = null;
                 }
             } else if (in("AnalyticsConfiguration", "Filter", "Tag")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentTagKey = getText();
-                } else if (name.equals("Value")) {
+                } else if ("Value".equals(name)) {
                     currentTagValue = getText();
                 }
             } else if (in("AnalyticsConfiguration", "Filter", "And")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     andOperandsList.add(new AnalyticsPrefixPredicate(getText()));
-                } else if (name.equals("Tag")) {
+                } else if ("Tag".equals(name)) {
                     andOperandsList.add(
                             new AnalyticsTagPredicate(new Tag(currentTagKey, currentTagValue)));
                     currentTagKey = null;
                     currentTagValue = null;
                 }
             } else if (in("AnalyticsConfiguration", "Filter", "And", "Tag")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentTagKey = getText();
-                } else if (name.equals("Value")) {
+                } else if ("Value".equals(name)) {
                     currentTagValue = getText();
                 }
             } else if (in("AnalyticsConfiguration", "StorageClassAnalysis")) {
-                if (name.equals("DataExport")) {
+                if ("DataExport".equals(name)) {
                     storageClassAnalysis.setDataExport(dataExport);
                 }
             } else if (in("AnalyticsConfiguration", "StorageClassAnalysis", "DataExport")) {
-                if (name.equals("OutputSchemaVersion")) {
+                if ("OutputSchemaVersion".equals(name)) {
                     dataExport.setOutputSchemaVersion(getText());
-                } else if (name.equals("Destination")) {
+                } else if ("Destination".equals(name)) {
                     dataExport.setDestination(destination);
                 }
             } else if (in(
@@ -2953,7 +2953,7 @@ public class XmlResponsesSaxParser {
                     "StorageClassAnalysis",
                     "DataExport",
                     "Destination")) {
-                if (name.equals("S3BucketDestination")) {
+                if ("S3BucketDestination".equals(name)) {
                     destination.setS3BucketDestination(s3BucketDestination);
                 }
             } else if (in(
@@ -2962,13 +2962,13 @@ public class XmlResponsesSaxParser {
                     "DataExport",
                     "Destination",
                     "S3BucketDestination")) {
-                if (name.equals("Format")) {
+                if ("Format".equals(name)) {
                     s3BucketDestination.setFormat(getText());
-                } else if (name.equals("BucketAccountId")) {
+                } else if ("BucketAccountId".equals(name)) {
                     s3BucketDestination.setBucketAccountId(getText());
-                } else if (name.equals("Bucket")) {
+                } else if ("Bucket".equals(name)) {
                     s3BucketDestination.setBucketArn(getText());
-                } else if (name.equals("Prefix")) {
+                } else if ("Prefix".equals(name)) {
                     s3BucketDestination.setPrefix(getText());
                 }
             }
@@ -3015,14 +3015,14 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("ListBucketAnalyticsConfigurationsResult")) {
-                if (name.equals("AnalyticsConfiguration")) {
+                if ("AnalyticsConfiguration".equals(name)) {
                     currentConfiguration = new AnalyticsConfiguration();
                 }
 
             } else if (in("ListBucketAnalyticsConfigurationsResult", "AnalyticsConfiguration")) {
-                if (name.equals("Filter")) {
+                if ("Filter".equals(name)) {
                     currentFilter = new AnalyticsFilter();
-                } else if (name.equals("StorageClassAnalysis")) {
+                } else if ("StorageClassAnalysis".equals(name)) {
                     storageClassAnalysis = new StorageClassAnalysis();
                 }
 
@@ -3030,7 +3030,7 @@ public class XmlResponsesSaxParser {
                     "ListBucketAnalyticsConfigurationsResult",
                     "AnalyticsConfiguration",
                     "Filter")) {
-                if (name.equals("And")) {
+                if ("And".equals(name)) {
                     andOperandsList = new ArrayList<AnalyticsFilterPredicate>();
                 }
 
@@ -3038,7 +3038,7 @@ public class XmlResponsesSaxParser {
                     "ListBucketAnalyticsConfigurationsResult",
                     "AnalyticsConfiguration",
                     "StorageClassAnalysis")) {
-                if (name.equals("DataExport")) {
+                if ("DataExport".equals(name)) {
                     dataExport = new StorageClassAnalysisDataExport();
                 }
 
@@ -3047,7 +3047,7 @@ public class XmlResponsesSaxParser {
                     "AnalyticsConfiguration",
                     "StorageClassAnalysis",
                     "DataExport")) {
-                if (name.equals("Destination")) {
+                if ("Destination".equals(name)) {
                     destination = new AnalyticsExportDestination();
                 }
 
@@ -3057,7 +3057,7 @@ public class XmlResponsesSaxParser {
                     "StorageClassAnalysis",
                     "DataExport",
                     "Destination")) {
-                if (name.equals("S3BucketDestination")) {
+                if ("S3BucketDestination".equals(name)) {
                     s3BucketDestination = new AnalyticsS3BucketDestination();
                 }
             }
@@ -3067,40 +3067,40 @@ public class XmlResponsesSaxParser {
         protected void doEndElement(String uri, String name, String qName) {
 
             if (in("ListBucketAnalyticsConfigurationsResult")) {
-                if (name.equals("AnalyticsConfiguration")) {
+                if ("AnalyticsConfiguration".equals(name)) {
                     if (result.getAnalyticsConfigurationList() == null) {
                         result.setAnalyticsConfigurationList(
                                 new ArrayList<AnalyticsConfiguration>());
                     }
                     result.getAnalyticsConfigurationList().add(currentConfiguration);
                     currentConfiguration = null;
-                } else if (name.equals("IsTruncated")) {
+                } else if ("IsTruncated".equals(name)) {
                     result.setTruncated("true".equals(getText()));
-                } else if (name.equals("ContinuationToken")) {
+                } else if ("ContinuationToken".equals(name)) {
                     result.setContinuationToken(getText());
-                } else if (name.equals("NextContinuationToken")) {
+                } else if ("NextContinuationToken".equals(name)) {
                     result.setNextContinuationToken(getText());
                 }
             } else if (in("ListBucketAnalyticsConfigurationsResult", "AnalyticsConfiguration")) {
-                if (name.equals("Id")) {
+                if ("Id".equals(name)) {
                     currentConfiguration.setId(getText());
-                } else if (name.equals("Filter")) {
+                } else if ("Filter".equals(name)) {
                     currentConfiguration.setFilter(currentFilter);
-                } else if (name.equals("StorageClassAnalysis")) {
+                } else if ("StorageClassAnalysis".equals(name)) {
                     currentConfiguration.setStorageClassAnalysis(storageClassAnalysis);
                 }
             } else if (in(
                     "ListBucketAnalyticsConfigurationsResult",
                     "AnalyticsConfiguration",
                     "Filter")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     currentFilter.setPredicate(new AnalyticsPrefixPredicate(getText()));
-                } else if (name.equals("Tag")) {
+                } else if ("Tag".equals(name)) {
                     currentFilter.setPredicate(
                             new AnalyticsTagPredicate(new Tag(currentTagKey, currentTagValue)));
                     currentTagKey = null;
                     currentTagValue = null;
-                } else if (name.equals("And")) {
+                } else if ("And".equals(name)) {
                     currentFilter.setPredicate(new AnalyticsAndOperator(andOperandsList));
                     andOperandsList = null;
                 }
@@ -3109,9 +3109,9 @@ public class XmlResponsesSaxParser {
                     "AnalyticsConfiguration",
                     "Filter",
                     "Tag")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentTagKey = getText();
-                } else if (name.equals("Value")) {
+                } else if ("Value".equals(name)) {
                     currentTagValue = getText();
                 }
             } else if (in(
@@ -3119,9 +3119,9 @@ public class XmlResponsesSaxParser {
                     "AnalyticsConfiguration",
                     "Filter",
                     "And")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     andOperandsList.add(new AnalyticsPrefixPredicate(getText()));
-                } else if (name.equals("Tag")) {
+                } else if ("Tag".equals(name)) {
                     andOperandsList.add(
                             new AnalyticsTagPredicate(new Tag(currentTagKey, currentTagValue)));
                     currentTagKey = null;
@@ -3133,16 +3133,16 @@ public class XmlResponsesSaxParser {
                     "Filter",
                     "And",
                     "Tag")) {
-                if (name.equals("Key")) {
+                if ("Key".equals(name)) {
                     currentTagKey = getText();
-                } else if (name.equals("Value")) {
+                } else if ("Value".equals(name)) {
                     currentTagValue = getText();
                 }
             } else if (in(
                     "ListBucketAnalyticsConfigurationsResult",
                     "AnalyticsConfiguration",
                     "StorageClassAnalysis")) {
-                if (name.equals("DataExport")) {
+                if ("DataExport".equals(name)) {
                     storageClassAnalysis.setDataExport(dataExport);
                 }
             } else if (in(
@@ -3150,9 +3150,9 @@ public class XmlResponsesSaxParser {
                     "AnalyticsConfiguration",
                     "StorageClassAnalysis",
                     "DataExport")) {
-                if (name.equals("OutputSchemaVersion")) {
+                if ("OutputSchemaVersion".equals(name)) {
                     dataExport.setOutputSchemaVersion(getText());
-                } else if (name.equals("Destination")) {
+                } else if ("Destination".equals(name)) {
                     dataExport.setDestination(destination);
                 }
             } else if (in(
@@ -3161,7 +3161,7 @@ public class XmlResponsesSaxParser {
                     "StorageClassAnalysis",
                     "DataExport",
                     "Destination")) {
-                if (name.equals("S3BucketDestination")) {
+                if ("S3BucketDestination".equals(name)) {
                     destination.setS3BucketDestination(s3BucketDestination);
                 }
             } else if (in(
@@ -3171,13 +3171,13 @@ public class XmlResponsesSaxParser {
                     "DataExport",
                     "Destination",
                     "S3BucketDestination")) {
-                if (name.equals("Format")) {
+                if ("Format".equals(name)) {
                     s3BucketDestination.setFormat(getText());
-                } else if (name.equals("BucketAccountId")) {
+                } else if ("BucketAccountId".equals(name)) {
                     s3BucketDestination.setBucketAccountId(getText());
-                } else if (name.equals("Bucket")) {
+                } else if ("Bucket".equals(name)) {
                     s3BucketDestination.setBucketArn(getText());
-                } else if (name.equals("Prefix")) {
+                } else if ("Prefix".equals(name)) {
                     s3BucketDestination.setPrefix(getText());
                 }
             }
@@ -3243,18 +3243,18 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("InventoryConfiguration")) {
-                if (name.equals("Destination")) {
+                if ("Destination".equals(name)) {
                     inventoryDestination = new InventoryDestination();
-                } else if (name.equals("Filter")) {
+                } else if ("Filter".equals(name)) {
                     filter = new InventoryFilter();
-                } else if (name.equals("Schedule")) {
+                } else if ("Schedule".equals(name)) {
                     inventorySchedule = new InventorySchedule();
-                } else if (name.equals("OptionalFields")) {
+                } else if ("OptionalFields".equals(name)) {
                     optionalFields = new ArrayList<String>();
                 }
 
             } else if (in("InventoryConfiguration", "Destination")) {
-                if (name.equals("S3BucketDestination")) {
+                if ("S3BucketDestination".equals(name)) {
                     s3BucketDestination = new InventoryS3BucketDestination();
                 }
             }
@@ -3264,69 +3264,69 @@ public class XmlResponsesSaxParser {
         protected void doEndElement(String uri, String name, String qName) {
 
             if (in("InventoryConfiguration")) {
-                if (name.equals("Id")) {
+                if ("Id".equals(name)) {
                     configuration.setId(getText());
 
-                } else if (name.equals("Destination")) {
+                } else if ("Destination".equals(name)) {
                     configuration.setDestination(inventoryDestination);
                     inventoryDestination = null;
 
-                } else if (name.equals("IsEnabled")) {
+                } else if ("IsEnabled".equals(name)) {
                     configuration.setEnabled("true".equals(getText()));
 
-                } else if (name.equals("Filter")) {
+                } else if ("Filter".equals(name)) {
                     configuration.setInventoryFilter(filter);
                     filter = null;
 
-                } else if (name.equals("IncludedObjectVersions")) {
+                } else if ("IncludedObjectVersions".equals(name)) {
                     configuration.setIncludedObjectVersions(getText());
 
-                } else if (name.equals("Schedule")) {
+                } else if ("Schedule".equals(name)) {
                     configuration.setSchedule(inventorySchedule);
                     inventorySchedule = null;
 
-                } else if (name.equals("OptionalFields")) {
+                } else if ("OptionalFields".equals(name)) {
                     configuration.setOptionalFields(optionalFields);
                     optionalFields = null;
                 }
 
             } else if (in("InventoryConfiguration", "Destination")) {
-                if (name.equals("S3BucketDestination")) {
+                if ("S3BucketDestination".equals(name)) {
                     inventoryDestination.setS3BucketDestination(s3BucketDestination);
                     s3BucketDestination = null;
                 }
 
             } else if (in("InventoryConfiguration", "Destination", "S3BucketDestination")) {
-                if (name.equals("AccountId")) {
+                if ("AccountId".equals(name)) {
                     s3BucketDestination.setAccountId(getText());
-                } else if (name.equals("Bucket")) {
+                } else if ("Bucket".equals(name)) {
                     s3BucketDestination.setBucketArn(getText());
-                } else if (name.equals("Format")) {
+                } else if ("Format".equals(name)) {
                     s3BucketDestination.setFormat(getText());
-                } else if (name.equals("Prefix")) {
+                } else if ("Prefix".equals(name)) {
                     s3BucketDestination.setPrefix(getText());
                 }
             } else if (in(
                     "InventoryConfiguration", "Destination", "S3BucketDestination", "Encryption")) {
-                if (name.equals(SSE_S3)) {
+                if (SSE_S3.equals(name)) {
                     s3BucketDestination.setEncryption(new ServerSideEncryptionS3());
-                } else if (name.equals(SSE_KMS)) {
+                } else if (SSE_KMS.equals(name)) {
                     ServerSideEncryptionKMS kmsEncryption =
                             new ServerSideEncryptionKMS().withKeyId(getText());
                     s3BucketDestination.setEncryption(kmsEncryption);
                 }
             } else if (in("InventoryConfiguration", "Filter")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     filter.setPredicate(new InventoryPrefixPredicate(getText()));
                 }
 
             } else if (in("InventoryConfiguration", "Schedule")) {
-                if (name.equals("Frequency")) {
+                if ("Frequency".equals(name)) {
                     inventorySchedule.setFrequency(getText());
                 }
 
             } else if (in("InventoryConfiguration", "OptionalFields")) {
-                if (name.equals("Field")) {
+                if ("Field".equals(name)) {
                     optionalFields.add(getText());
                 }
             }
@@ -3373,24 +3373,24 @@ public class XmlResponsesSaxParser {
         protected void doStartElement(String uri, String name, String qName, Attributes attrs) {
 
             if (in("ListInventoryConfigurationsResult")) {
-                if (name.equals("InventoryConfiguration")) {
+                if ("InventoryConfiguration".equals(name)) {
                     currentConfiguration = new InventoryConfiguration();
                 }
 
             } else if (in("ListInventoryConfigurationsResult", "InventoryConfiguration")) {
-                if (name.equals("Destination")) {
+                if ("Destination".equals(name)) {
                     currentDestination = new InventoryDestination();
-                } else if (name.equals("Filter")) {
+                } else if ("Filter".equals(name)) {
                     currentFilter = new InventoryFilter();
-                } else if (name.equals("Schedule")) {
+                } else if ("Schedule".equals(name)) {
                     currentSchedule = new InventorySchedule();
-                } else if (name.equals("OptionalFields")) {
+                } else if ("OptionalFields".equals(name)) {
                     currentOptionalFieldsList = new ArrayList<String>();
                 }
 
             } else if (in(
                     "ListInventoryConfigurationsResult", "InventoryConfiguration", "Destination")) {
-                if (name.equals("S3BucketDestination")) {
+                if ("S3BucketDestination".equals(name)) {
                     currentS3BucketDestination = new InventoryS3BucketDestination();
                 }
             }
@@ -3400,50 +3400,50 @@ public class XmlResponsesSaxParser {
         protected void doEndElement(String uri, String name, String qName) {
 
             if (in("ListInventoryConfigurationsResult")) {
-                if (name.equals("InventoryConfiguration")) {
+                if ("InventoryConfiguration".equals(name)) {
                     if (result.getInventoryConfigurationList() == null) {
                         result.setInventoryConfigurationList(
                                 new ArrayList<InventoryConfiguration>());
                     }
                     result.getInventoryConfigurationList().add(currentConfiguration);
                     currentConfiguration = null;
-                } else if (name.equals("IsTruncated")) {
+                } else if ("IsTruncated".equals(name)) {
                     result.setTruncated("true".equals(getText()));
-                } else if (name.equals("ContinuationToken")) {
+                } else if ("ContinuationToken".equals(name)) {
                     result.setContinuationToken(getText());
-                } else if (name.equals("NextContinuationToken")) {
+                } else if ("NextContinuationToken".equals(name)) {
                     result.setNextContinuationToken(getText());
                 }
             } else if (in("ListInventoryConfigurationsResult", "InventoryConfiguration")) {
-                if (name.equals("Id")) {
+                if ("Id".equals(name)) {
                     currentConfiguration.setId(getText());
 
-                } else if (name.equals("Destination")) {
+                } else if ("Destination".equals(name)) {
                     currentConfiguration.setDestination(currentDestination);
                     currentDestination = null;
 
-                } else if (name.equals("IsEnabled")) {
+                } else if ("IsEnabled".equals(name)) {
                     currentConfiguration.setEnabled("true".equals(getText()));
 
-                } else if (name.equals("Filter")) {
+                } else if ("Filter".equals(name)) {
                     currentConfiguration.setInventoryFilter(currentFilter);
                     currentFilter = null;
 
-                } else if (name.equals("IncludedObjectVersions")) {
+                } else if ("IncludedObjectVersions".equals(name)) {
                     currentConfiguration.setIncludedObjectVersions(getText());
 
-                } else if (name.equals("Schedule")) {
+                } else if ("Schedule".equals(name)) {
                     currentConfiguration.setSchedule(currentSchedule);
                     currentSchedule = null;
 
-                } else if (name.equals("OptionalFields")) {
+                } else if ("OptionalFields".equals(name)) {
                     currentConfiguration.setOptionalFields(currentOptionalFieldsList);
                     currentOptionalFieldsList = null;
                 }
 
             } else if (in(
                     "ListInventoryConfigurationsResult", "InventoryConfiguration", "Destination")) {
-                if (name.equals("S3BucketDestination")) {
+                if ("S3BucketDestination".equals(name)) {
                     currentDestination.setS3BucketDestination(currentS3BucketDestination);
                     currentS3BucketDestination = null;
                 }
@@ -3453,25 +3453,25 @@ public class XmlResponsesSaxParser {
                     "InventoryConfiguration",
                     "Destination",
                     "S3BucketDestination")) {
-                if (name.equals("AccountId")) {
+                if ("AccountId".equals(name)) {
                     currentS3BucketDestination.setAccountId(getText());
-                } else if (name.equals("Bucket")) {
+                } else if ("Bucket".equals(name)) {
                     currentS3BucketDestination.setBucketArn(getText());
-                } else if (name.equals("Format")) {
+                } else if ("Format".equals(name)) {
                     currentS3BucketDestination.setFormat(getText());
-                } else if (name.equals("Prefix")) {
+                } else if ("Prefix".equals(name)) {
                     currentS3BucketDestination.setPrefix(getText());
                 }
 
             } else if (in(
                     "ListInventoryConfigurationsResult", "InventoryConfiguration", "Filter")) {
-                if (name.equals("Prefix")) {
+                if ("Prefix".equals(name)) {
                     currentFilter.setPredicate(new InventoryPrefixPredicate(getText()));
                 }
 
             } else if (in(
                     "ListInventoryConfigurationsResult", "InventoryConfiguration", "Schedule")) {
-                if (name.equals("Frequency")) {
+                if ("Frequency".equals(name)) {
                     currentSchedule.setFrequency(getText());
                 }
 
@@ -3479,7 +3479,7 @@ public class XmlResponsesSaxParser {
                     "ListInventoryConfigurationsResult",
                     "InventoryConfiguration",
                     "OptionalFields")) {
-                if (name.equals("Field")) {
+                if ("Field".equals(name)) {
                     currentOptionalFieldsList.add(getText());
                 }
             }
