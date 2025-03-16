@@ -18,6 +18,7 @@
 
 package org.apache.paimon.flink.lookup;
 
+import java.security.SecureRandom;
 import org.apache.paimon.CoreOptions;
 import org.apache.paimon.data.GenericRow;
 import org.apache.paimon.data.InternalRow;
@@ -72,7 +73,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 /** Tests for {@link FileStoreLookupFunction}. */
 public class FileStoreLookupFunctionTest {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
 
     @TempDir private Path tempDir;
 

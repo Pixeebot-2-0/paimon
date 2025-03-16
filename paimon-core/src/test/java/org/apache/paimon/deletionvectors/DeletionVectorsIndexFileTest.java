@@ -18,6 +18,7 @@
 
 package org.apache.paimon.deletionvectors;
 
+import java.security.SecureRandom;
 import org.apache.paimon.fs.Path;
 import org.apache.paimon.fs.local.LocalFileIO;
 import org.apache.paimon.index.IndexFileMeta;
@@ -89,7 +90,7 @@ public class DeletionVectorsIndexFileTest {
                         LocalFileIO.create(), pathFactory, MemorySize.ofBytes(Long.MAX_VALUE));
 
         // write
-        Random random = new Random();
+        Random random = new SecureRandom();
         HashMap<String, DeletionVector> deleteMap = new HashMap<>();
         for (int i = 0; i < 100000; i++) {
             BitmapDeletionVector index = new BitmapDeletionVector();
@@ -113,7 +114,7 @@ public class DeletionVectorsIndexFileTest {
                         LocalFileIO.create(), pathFactory, MemorySize.ofBytes(Long.MAX_VALUE));
 
         // write
-        Random random = new Random();
+        Random random = new SecureRandom();
         Map<String, DeletionVector> fileToDV = new HashMap<>();
         Map<String, Long> fileToCardinality = new HashMap<>();
         for (int i = 0; i < 5; i++) {
@@ -145,7 +146,7 @@ public class DeletionVectorsIndexFileTest {
                         LocalFileIO.create(), pathFactory, MemorySize.parse("2MB"));
 
         // write1
-        Random random = new Random();
+        Random random = new SecureRandom();
         Map<String, DeletionVector> fileToDV = new HashMap<>();
         Map<String, Long> fileToCardinality = new HashMap<>();
         for (int i = 0; i < 5; i++) {

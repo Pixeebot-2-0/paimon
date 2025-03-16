@@ -18,6 +18,7 @@
 
 package org.apache.paimon.fileindex;
 
+import java.security.SecureRandom;
 import org.apache.paimon.fileindex.empty.EmptyFileIndexReader;
 import org.apache.paimon.fs.ByteArraySeekableStream;
 import org.apache.paimon.types.DataTypes;
@@ -40,7 +41,7 @@ import static org.apache.paimon.utils.RandomUtil.randomString;
 /** Test for {@link FileIndexFormat}. */
 public class FileIndexFormatFormatTest {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
 
     @Test
     public void testWriteRead() throws IOException {

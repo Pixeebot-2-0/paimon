@@ -18,6 +18,7 @@
 
 package org.apache.paimon.data.serializer;
 
+import java.security.SecureRandom;
 import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
@@ -40,7 +41,7 @@ public class NullableSerializerTest extends SerializerTestBase<Integer> {
 
     @Override
     protected Integer[] getTestData() {
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         int rndInt = rnd.nextInt();
 
         return new Integer[] {

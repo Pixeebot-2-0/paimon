@@ -18,6 +18,7 @@
 
 package org.apache.paimon.flink.utils;
 
+import java.security.SecureRandom;
 import org.apache.flink.api.common.typeutils.SerializerTestBase;
 import org.apache.flink.api.common.typeutils.TypeSerializer;
 
@@ -45,7 +46,7 @@ public class JavaSerializerTest extends SerializerTestBase<JavaSerializerTest.Te
 
     @Override
     protected TestClass[] getTestData() {
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         int rndInt = rnd.nextInt();
 
         Integer[] integers =

@@ -18,6 +18,7 @@
 
 package org.apache.paimon.disk;
 
+import java.security.SecureRandom;
 import org.apache.paimon.compression.CompressOptions;
 import org.apache.paimon.data.BinaryRow;
 import org.apache.paimon.data.BinaryRowWriter;
@@ -53,7 +54,7 @@ public class ExternalBufferTest {
     @BeforeEach
     public void before() {
         this.ioManager = IOManager.create(tempDir.toString());
-        this.random = new Random();
+        this.random = new SecureRandom();
         this.serializer = new BinaryRowSerializer(1);
     }
 

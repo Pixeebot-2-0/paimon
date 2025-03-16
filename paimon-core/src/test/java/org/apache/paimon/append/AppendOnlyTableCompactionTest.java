@@ -18,6 +18,7 @@
 
 package org.apache.paimon.append;
 
+import java.security.SecureRandom;
 import org.apache.paimon.data.BinaryString;
 import org.apache.paimon.data.GenericRow;
 import org.apache.paimon.data.InternalRow;
@@ -53,7 +54,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /** Test for append table compaction. */
 public class AppendOnlyTableCompactionTest {
 
-    private static final Random random = new Random();
+    private static final Random random = new SecureRandom();
 
     @TempDir private Path tempDir;
     private FileStoreTable appendOnlyFileStoreTable;

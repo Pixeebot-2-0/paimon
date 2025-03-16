@@ -18,6 +18,7 @@
 
 package org.apache.paimon.mergetree;
 
+import java.security.SecureRandom;
 import org.apache.paimon.CoreOptions;
 import org.apache.paimon.CoreOptions.SortEngine;
 import org.apache.paimon.KeyValue;
@@ -141,7 +142,7 @@ public class MergeSorterTest {
         comparator = comparator.thenComparingLong(KeyValue::sequenceNumber);
 
         List<SizedReaderSupplier<KeyValue>> readers = new ArrayList<>();
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         List<KeyValue> expectedKvs = new ArrayList<>();
         Set<Long> distinctSeq = new HashSet<>();
         for (int i = 0; i < rnd.nextInt(20) + 3; i++) {

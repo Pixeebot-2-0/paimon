@@ -18,6 +18,7 @@
 
 package org.apache.paimon.operation;
 
+import java.security.SecureRandom;
 import org.apache.paimon.append.AppendOnlyWriter;
 import org.apache.paimon.catalog.Catalog;
 import org.apache.paimon.catalog.FileSystemCatalog;
@@ -54,7 +55,7 @@ import static org.apache.paimon.CoreOptions.WRITE_MAX_WRITERS_TO_SPILL;
 /** Tests for {@link AppendOnlyFileStoreWrite}. */
 public class AppendOnlyFileStoreWriteTest {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
 
     @TempDir java.nio.file.Path tempDir;
 

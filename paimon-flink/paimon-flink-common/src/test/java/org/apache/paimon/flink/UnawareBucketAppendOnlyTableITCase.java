@@ -18,6 +18,7 @@
 
 package org.apache.paimon.flink;
 
+import java.security.SecureRandom;
 import org.apache.paimon.Snapshot;
 import org.apache.paimon.data.InternalRow;
 import org.apache.paimon.flink.utils.RuntimeContextUtils;
@@ -57,7 +58,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /** Test case for append-only managed unaware-bucket table. */
 public class UnawareBucketAppendOnlyTableITCase extends CatalogITCaseBase {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
 
     @Test
     public void testReadEmpty() {

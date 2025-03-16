@@ -18,6 +18,7 @@
 
 package org.apache.paimon.table;
 
+import java.security.SecureRandom;
 import org.apache.paimon.catalog.Catalog;
 import org.apache.paimon.catalog.CatalogContext;
 import org.apache.paimon.catalog.CatalogFactory;
@@ -65,7 +66,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /** Test base for table. */
 public abstract class TableTestBase {
 
-    protected static final Random RANDOM = new Random();
+    protected static final Random RANDOM = new SecureRandom();
     protected static final String DEFAULT_TABLE_NAME = "MyTable";
 
     protected final String commitUser = UUID.randomUUID().toString();
