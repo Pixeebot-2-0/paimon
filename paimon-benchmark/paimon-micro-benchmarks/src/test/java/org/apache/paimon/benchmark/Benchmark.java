@@ -18,6 +18,7 @@
 
 package org.apache.paimon.benchmark;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 
@@ -145,7 +146,7 @@ public class Benchmark {
                                             new InputStreamReader(start.getInputStream()));
                             String s;
                             try {
-                                while ((s = reader.readLine()) != null) {
+                                while ((s = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                                     output.append(s).append("\n");
                                 }
                             } catch (IOException ignored) {
