@@ -18,6 +18,7 @@
 
 package org.apache.paimon.hive.pool;
 
+import java.nio.file.Files;
 import org.apache.paimon.catalog.Catalog;
 import org.apache.paimon.catalog.CatalogContext;
 import org.apache.paimon.fs.FileIO;
@@ -395,8 +396,7 @@ public class TestCachedClientPool {
 
                                                 // tempDir
                                                 File tempDir =
-                                                        File.createTempFile(
-                                                                "paimon-", "-hive.catalog");
+                                                        Files.createTempFile("paimon-", "-hive.catalog").toFile();
                                                 tempDir.delete();
                                                 tempDir.mkdir();
                                                 tempDir.deleteOnExit();
