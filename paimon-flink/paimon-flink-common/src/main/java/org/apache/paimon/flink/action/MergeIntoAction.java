@@ -311,7 +311,7 @@ public class MergeIntoAction extends TableActionBase {
 
         List<String> project;
         // extract project
-        if (matchedUpsertSet.equals("*")) {
+        if ("*".equals(matchedUpsertSet)) {
             // if sourceName is qualified like 'default.S', we should build a project like S.*
             String[] splits = sourceTable.split("\\.");
             project = Collections.singletonList(splits[splits.length - 1] + ".*");

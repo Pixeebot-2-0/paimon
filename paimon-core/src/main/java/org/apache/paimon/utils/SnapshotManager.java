@@ -593,8 +593,8 @@ public class SnapshotManager implements Serializable {
         return path -> {
             String name = path.getName();
             return !name.startsWith(SNAPSHOT_PREFIX)
-                    && !name.equals(EARLIEST)
-                    && !name.equals(LATEST);
+                    && !EARLIEST.equals(name)
+                    && !LATEST.equals(name);
         };
     }
 
@@ -602,8 +602,8 @@ public class SnapshotManager implements Serializable {
         return path -> {
             String name = path.getName();
             return !name.startsWith(CHANGELOG_PREFIX)
-                    && !name.equals(EARLIEST)
-                    && !name.equals(LATEST);
+                    && !EARLIEST.equals(name)
+                    && !LATEST.equals(name);
         };
     }
 

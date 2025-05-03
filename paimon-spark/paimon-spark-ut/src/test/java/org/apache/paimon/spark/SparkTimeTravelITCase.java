@@ -336,9 +336,9 @@ public class SparkTimeTravelITCase extends SparkReadTestBase {
             spark.sql("SELECT * FROM t version as of 'watermark-11'").collectAsList();
         } catch (Exception e) {
             assertThat(
-                    e.getMessage()
-                            .equals(
-                                    "There is currently no snapshot later than or equal to watermark[11]"));
+                    "There is currently no snapshot later than or equal to watermark[11]"
+                            .equals
+                                    (e.getMessage()));
         }
 
         // time travel to watermark '9'
