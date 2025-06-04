@@ -18,6 +18,7 @@
 
 package org.apache.paimon.utils;
 
+import io.github.pixee.security.ZipSecurity;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,8 +33,7 @@ public class CompatibilityTestUtils {
 
     public static void unzip(String zipFileName, String targetDirectory) throws IOException {
         try (ZipInputStream zip =
-                new ZipInputStream(
-                        CompatibilityTestUtils.class
+                ZipSecurity.createHardenedInputStream(CompatibilityTestUtils.class
                                 .getClassLoader()
                                 .getResourceAsStream(zipFileName))) {
             ZipEntry entry;
