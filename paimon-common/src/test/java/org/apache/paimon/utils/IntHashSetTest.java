@@ -18,6 +18,7 @@
 
 package org.apache.paimon.utils;
 
+import java.security.SecureRandom;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -32,7 +33,7 @@ public class IntHashSetTest {
     @Test
     public void testRandom() {
         Set<Integer> values = new HashSet<>();
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         for (int i = 0; i < rnd.nextInt(100); i++) {
             values.add(rnd.nextInt());
         }

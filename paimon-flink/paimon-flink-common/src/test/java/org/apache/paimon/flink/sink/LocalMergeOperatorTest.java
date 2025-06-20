@@ -18,6 +18,7 @@
 
 package org.apache.paimon.flink.sink;
 
+import java.security.SecureRandom;
 import org.apache.paimon.data.GenericRow;
 import org.apache.paimon.data.InternalRow;
 import org.apache.paimon.mergetree.localmerge.HashMapLocalMerger;
@@ -83,7 +84,7 @@ class LocalMergeOperatorTest {
 
         // large records
         Map<String, String> expected = new HashMap<>();
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         int records = 10_000;
         for (int i = 0; i < records; i++) {
             String key = rnd.nextInt(records) + "";

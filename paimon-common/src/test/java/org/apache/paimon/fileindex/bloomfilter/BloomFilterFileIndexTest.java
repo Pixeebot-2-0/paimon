@@ -18,6 +18,7 @@
 
 package org.apache.paimon.fileindex.bloomfilter;
 
+import java.security.SecureRandom;
 import org.apache.paimon.fileindex.FileIndexReader;
 import org.apache.paimon.fileindex.FileIndexWriter;
 import org.apache.paimon.fs.ByteArraySeekableStream;
@@ -35,7 +36,7 @@ import java.util.Random;
 /** Tests for {@link BloomFilterFileIndex}. */
 public class BloomFilterFileIndexTest {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
 
     @Test
     public void testAddFindByRandom() {

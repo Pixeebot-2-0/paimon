@@ -18,6 +18,7 @@
 
 package org.apache.paimon.table;
 
+import java.security.SecureRandom;
 import org.apache.paimon.CoreOptions;
 import org.apache.paimon.data.GenericRow;
 import org.apache.paimon.fs.FileIOFinder;
@@ -67,7 +68,7 @@ public class WritePreemptMemoryTest extends FileStoreTableTestBase {
         FileStoreTable table = createFileStoreTable();
         StreamTableWrite write = table.newWrite(commitUser);
         StreamTableCommit commit = table.newCommit(commitUser);
-        Random random = new Random();
+        Random random = new SecureRandom();
         List<String> expected = new ArrayList<>();
         for (int i = 0; i < 10_000; i++) {
             GenericRow row = rowData(singlePartition ? 0 : random.nextInt(5), i, i * 10L);

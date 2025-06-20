@@ -18,12 +18,13 @@
 
 package org.apache.paimon.utils;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 /** Utils for tests. */
 public class RandomUtil {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
 
     public static byte[] randomBytes(int length) {
         byte[] b = new byte[length];

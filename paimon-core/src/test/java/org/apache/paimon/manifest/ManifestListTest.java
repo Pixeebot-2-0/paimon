@@ -18,6 +18,7 @@
 
 package org.apache.paimon.manifest;
 
+import java.security.SecureRandom;
 import org.apache.paimon.CoreOptions;
 import org.apache.paimon.TestKeyValueGenerator;
 import org.apache.paimon.format.FileFormat;
@@ -85,7 +86,7 @@ public class ManifestListTest {
     }
 
     private List<ManifestFileMeta> generateData() {
-        Random random = new Random();
+        Random random = new SecureRandom();
         List<ManifestFileMeta> metas = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             List<ManifestEntry> entries = new ArrayList<>();

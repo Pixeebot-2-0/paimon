@@ -18,6 +18,7 @@
 
 package org.apache.paimon.flink;
 
+import java.security.SecureRandom;
 import org.apache.paimon.manifest.ManifestEntry;
 import org.apache.paimon.operation.AppendOnlyFileStoreScan;
 import org.apache.paimon.predicate.Predicate;
@@ -249,7 +250,7 @@ public class RangePartitionAndSortForUnawareBucketTableITCase extends CatalogITC
 
     private List<Row> generateSinkRows() {
         List<Row> sinkRows = new ArrayList<>();
-        Random random = new Random();
+        Random random = new SecureRandom();
         for (int round = 0; round < SINK_ROW_NUMBER; round++) {
             sinkRows.add(
                     Row.ofKind(

@@ -18,6 +18,7 @@
 
 package org.apache.paimon.table;
 
+import java.security.SecureRandom;
 import org.apache.paimon.CoreOptions;
 import org.apache.paimon.data.BinaryRow;
 import org.apache.paimon.data.BinaryString;
@@ -900,7 +901,7 @@ public class AppendOnlyFileStoreTableTest extends FileStoreTableTestBase {
 
     @Test
     public void testSequentialRead() throws Exception {
-        Random random = new Random();
+        Random random = new SecureRandom();
         int numOfBucket = Math.max(random.nextInt(8), 1);
         FileStoreTable table = createFileStoreTable(numOfBucket);
         InternalRowSerializer serializer =

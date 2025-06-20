@@ -18,6 +18,7 @@
 
 package org.apache.paimon.manifest;
 
+import java.security.SecureRandom;
 import org.apache.paimon.utils.ObjectSerializer;
 import org.apache.paimon.utils.ObjectSerializerTestBase;
 
@@ -40,7 +41,7 @@ public class IndexManifestEntrySerializerTest extends ObjectSerializerTestBase<I
     }
 
     public static IndexManifestEntry randomIndexEntry() {
-        Random rnd = new Random();
+        Random rnd = new SecureRandom();
         return new IndexManifestEntry(
                 rnd.nextBoolean() ? FileKind.ADD : FileKind.DELETE,
                 row(rnd.nextInt()),
