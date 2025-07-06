@@ -18,6 +18,7 @@
 
 package org.apache.paimon.utils;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -141,7 +142,7 @@ public final class IOUtils {
                 new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
         StringBuilder builder = new StringBuilder();
         String line;
-        while ((line = reader.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
             builder.append(line);
         }
         return builder.toString();

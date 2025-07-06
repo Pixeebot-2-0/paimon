@@ -18,6 +18,7 @@
 
 package org.apache.paimon.benchmark.metric.cpu;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.apache.paimon.benchmark.metric.cpu.clock.Clock;
 import org.apache.paimon.benchmark.metric.cpu.clock.SystemClock;
 
@@ -519,7 +520,7 @@ public class ProcfsBasedProcessTree {
 
         ret = pinfo;
         try {
-            String str = in.readLine(); // only one line
+            String str = BoundedLineReader.readLine(in, 5_000_000); // only one line
             Matcher m = PROCFS_STAT_FILE_FORMAT.matcher(str);
             boolean mat = m.find();
             if (mat) {
@@ -712,7 +713,7 @@ public class ProcfsBasedProcessTree {
             in = new BufferedReader(fReader);
 
             try {
-                ret = in.readLine(); // only one line
+                ret = BoundedLineReader.readLine(in, 5_000_000); // only one line
                 if (ret == null) {
                     ret = "N/A";
                 } else {
