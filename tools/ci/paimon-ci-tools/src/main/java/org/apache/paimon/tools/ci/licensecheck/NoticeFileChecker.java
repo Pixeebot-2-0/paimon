@@ -198,7 +198,7 @@ public class NoticeFileChecker {
         shadingModules.removeAll(modulesWithNoticeFile);
         for (String moduleWithoutNotice : shadingModules) {
             if (modulesWithShadedDependencies.get(moduleWithoutNotice).stream()
-                    .anyMatch(dependency -> !dependency.getGroupId().equals("org.apache.paimon"))) {
+                    .anyMatch(dependency -> !"org.apache.paimon".equals(dependency.getGroupId()))) {
                 LOG.error(
                         "Module {} is missing a NOTICE file. It has shaded dependencies: {}",
                         moduleWithoutNotice,
@@ -293,7 +293,7 @@ public class NoticeFileChecker {
                             .stream()
                             .filter(
                                     dependency ->
-                                            !dependency.getGroupId().equals("org.apache.paimon"))
+                                            !"org.apache.paimon".equals(dependency.getGroupId()))
                             .collect(Collectors.toList());
 
             for (Dependency expectedDependency : expectedDependencies) {
@@ -355,9 +355,9 @@ public class NoticeFileChecker {
                 .filter(
                         file -> {
                             int nameCount = file.getNameCount();
-                            return file.getName(nameCount - 3).toString().equals("resources")
-                                    && file.getName(nameCount - 2).toString().equals("META-INF")
-                                    && file.getName(nameCount - 1).toString().equals("NOTICE");
+                            return "resources".equals(file.getName(nameCount - 3).toString())
+                                    && "META-INF".equals(file.getName(nameCount - 2).toString())
+                                    && "NOTICE".equals(file.getName(nameCount - 1).toString());
                         })
                 .collect(Collectors.toList());
     }

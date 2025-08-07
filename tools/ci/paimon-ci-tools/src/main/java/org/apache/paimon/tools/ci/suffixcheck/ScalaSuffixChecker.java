@@ -108,7 +108,7 @@ public class ScalaSuffixChecker {
             boolean infected = false;
             for (Dependency dependency : dependencies) {
                 final boolean dependsOnScala = dependsOnScala(dependency);
-                final boolean isTestDependency = dependency.getScope().get().equals("test");
+                final boolean isTestDependency = "test".equals(dependency.getScope().get());
                 final boolean isExcluded = isExcluded(dependency.getArtifactId());
                 LOG.trace("\tdependency:{}", dependency);
                 LOG.trace("\t\tdepends-on-scala:{}", dependsOnScala);
@@ -167,7 +167,7 @@ public class ScalaSuffixChecker {
             throws IOException {
         try (Stream<Path> pathStream = Files.walk(paimonRootPath.resolve("paimon-e2e-tests"), 5)) {
             return pathStream
-                    .filter(path -> path.getFileName().toString().equals("pom.xml"))
+                    .filter(path -> "pom.xml".equals(path.getFileName().toString()))
                     .map(path -> path.getParent().getFileName().toString())
                     .collect(Collectors.toList());
         }
@@ -207,7 +207,7 @@ public class ScalaSuffixChecker {
             try (Stream<Path> pathStream = Files.walk(paimonRootPath, 3)) {
                 final List<Path> pomFiles =
                         pathStream
-                                .filter(path -> path.getFileName().toString().equals("pom.xml"))
+                                .filter(path -> "pom.xml".equals(path.getFileName().toString()))
                                 .collect(Collectors.toList());
 
                 for (Path pomFile : pomFiles) {

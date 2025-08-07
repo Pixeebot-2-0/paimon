@@ -303,7 +303,7 @@ public abstract class MySqlCdcE2eTestBase extends E2eTestBase {
                 StringUtils.isNullOrWhitespaceOnly(typeMappingOptions)
                         ? ""
                         : "--type-mapping " + typeMappingOptions;
-        String tableStr = action.equals(ACTION_SYNC_TABLE) ? "--table ts_table" : "";
+        String tableStr = ACTION_SYNC_TABLE.equals(action) ? "--table ts_table" : "";
 
         List<String> computedColumns =
                 computedColumn.keySet().stream()

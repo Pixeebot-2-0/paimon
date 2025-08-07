@@ -88,7 +88,7 @@ public class ReusingTestData implements Comparable<ReusingTestData> {
                     new ReusingTestData(
                             Integer.parseInt(split[0].trim()),
                             Long.parseLong(split[1].trim()),
-                            split[2].trim().equals("+") ? RowKind.INSERT : RowKind.DELETE,
+                            "+".equals(split[2].trim()) ? RowKind.INSERT : RowKind.DELETE,
                             Long.parseLong(split[3].trim())));
         }
         return result;
