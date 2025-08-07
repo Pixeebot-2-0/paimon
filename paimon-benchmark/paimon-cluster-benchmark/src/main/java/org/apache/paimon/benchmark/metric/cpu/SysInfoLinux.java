@@ -384,7 +384,7 @@ public class SysInfoLinux {
                     assert mat.groupCount() >= 16;
 
                     // ignore loopback interfaces
-                    if (mat.group(1).equals("lo")) {
+                    if ("lo".equals(mat.group(1))) {
                         str = in.readLine();
                         continue;
                     }

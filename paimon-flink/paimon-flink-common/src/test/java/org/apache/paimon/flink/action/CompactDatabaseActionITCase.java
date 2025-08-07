@@ -352,7 +352,7 @@ public class CompactDatabaseActionITCase extends CompactActionITCaseBase {
         switch (invoker) {
             case "action":
                 CompactDatabaseAction action;
-                if (mode.equals("divided")) {
+                if ("divided".equals(mode)) {
                     action =
                             createAction(
                                     CompactDatabaseAction.class,
@@ -380,7 +380,7 @@ public class CompactDatabaseActionITCase extends CompactActionITCaseBase {
                 env.executeAsync();
                 break;
             case "procedure_indexed":
-                if (mode.equals("divided")) {
+                if ("divided".equals(mode)) {
                     executeSQL("CALL sys.compact_database()", true, false);
                 } else {
                     executeSQL(
@@ -390,7 +390,7 @@ public class CompactDatabaseActionITCase extends CompactActionITCaseBase {
                 }
                 break;
             case "procedure_named":
-                if (mode.equals("divided")) {
+                if ("divided".equals(mode)) {
                     executeSQL("CALL sys.compact_database()", true, false);
                 } else {
                     executeSQL(
@@ -456,7 +456,7 @@ public class CompactDatabaseActionITCase extends CompactActionITCaseBase {
         }
 
         // In combined mode, check whether newly created table can be detected
-        if (mode.equals("combined")) {
+        if ("combined".equals(mode)) {
             // second create tables and write data to tables
             List<FileStoreTable> newtables = new ArrayList<>();
             for (String dbName : New_DATABASE_NAMES) {
@@ -779,7 +779,7 @@ public class CompactDatabaseActionITCase extends CompactActionITCaseBase {
                 }
                 args.add("--mode");
                 args.add(mode);
-                if (mode.equals("combined")) {
+                if ("combined".equals(mode)) {
                     args.add("--table_conf");
                     args.add(CoreOptions.CONTINUOUS_DISCOVERY_INTERVAL.key() + "=1s");
                 }
@@ -792,7 +792,7 @@ public class CompactDatabaseActionITCase extends CompactActionITCaseBase {
                 env.execute();
                 break;
             case "procedure_indexed":
-                if (mode.equals("divided")) {
+                if ("divided".equals(mode)) {
                     executeSQL(
                             String.format(
                                     "CALL sys.compact_database('', 'divided', '%s', '%s')",
@@ -809,7 +809,7 @@ public class CompactDatabaseActionITCase extends CompactActionITCaseBase {
                 }
                 break;
             case "procedure_named":
-                if (mode.equals("divided")) {
+                if ("divided".equals(mode)) {
                     executeSQL(
                             String.format(
                                     "CALL sys.compact_database(mode => 'divided', including_tables => '%s', excluding_tables => '%s')",

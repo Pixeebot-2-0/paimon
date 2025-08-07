@@ -184,7 +184,7 @@ public class DeletionVectorITCase extends CatalogITCaseBase {
                         Row.of(1, 111111111), Row.of(2, 4), Row.of(3, 4), Row.of(4, 5));
 
         // test streaming read
-        if (changelogProducer.equals("lookup")) {
+        if ("lookup".equals(changelogProducer)) {
             try (BlockingIterator<Row, Row> iter =
                     streamSqlBlockIter(
                             "SELECT * FROM T /*+ OPTIONS('scan.mode'='from-snapshot-full','scan.snapshot-id' = '4') */")) {
@@ -229,7 +229,7 @@ public class DeletionVectorITCase extends CatalogITCaseBase {
                         Row.of(4, "4", "4"));
 
         // test streaming read
-        if (changelogProducer.equals("lookup")) {
+        if ("lookup".equals(changelogProducer)) {
             try (BlockingIterator<Row, Row> iter =
                     streamSqlBlockIter(
                             "SELECT * FROM T /*+ OPTIONS('scan.mode'='from-snapshot-full','scan.snapshot-id' = '4') */")) {

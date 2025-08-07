@@ -232,7 +232,7 @@ public class AggregationFieldsTable implements ReadonlyTable {
 
         for (Map.Entry<String, String> entry : inputMap.entrySet()) {
             String[] keys = entry.getKey().split("\\.");
-            if (keys.length > 2 && keys[0].equals("fields")) {
+            if (keys.length > 2 && "fields".equals(keys[0])) {
                 String fieldKey = keys[1];
                 String content = contentSelector.apply(entry);
                 fieldMultimap.put(fieldKey, content);
